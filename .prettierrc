@@ -5,5 +5,8 @@
     "semi": false,
     "singleAttributePerLine": true,
     "tabWidth": 4,
-    "useTabs": false
+    "useTabs": false,
+    "plugins": [
+        "prettier-plugin-tailwindcss"
+    ]
 }

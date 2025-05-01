@@ -4,7 +4,7 @@
     "type": "module",
     "scripts": {
         "build": "nuxt build",
-        "dev": "nuxt dev",
+        "dev": "nuxt dev --host",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
@@ -12,6 +12,8 @@
         "lint:fix": "eslint . --fix"
     },
     "dependencies": {
+        "@headlessui/vue": "^1.7.23",
+        "@heroicons/vue": "^2.2.0",
         "@nuxt/eslint": "^1.1.0",
         "@tailwindcss/vite": "^4.0.12",
         "eslint": "^9.22.0",
@@ -21,6 +23,8 @@
         "vue-router": "^4.5.0"
     },
     "devDependencies": {
+        "prettier": "^3.5.3",
+        "prettier-plugin-tailwindcss": "^0.6.11",
         "typescript": "^5.8.2"
     }
 }
