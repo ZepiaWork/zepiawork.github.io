@@ -1,9 +1,7 @@
 <template>
     <div class="mx-auto max-w-2xl space-y-6 p-6">
         <h2 class="mb-4 text-2xl font-bold text-gray-800">Byte Unit Converter</h2>
-
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <!-- Input section -->
             <div class="space-y-4">
                 <label class="block">
                     <span class="text-gray-700">From:</span>
@@ -26,8 +24,6 @@
                     <option value="terabytes">Terabytes</option>
                 </select>
             </div>
-
-            <!-- Output section -->
             <div class="space-y-4">
                 <label class="block">
                     <span class="text-gray-700">To:</span>
@@ -54,6 +50,10 @@
 </template>
 <script lang="ts" setup>
 import { ref, watch } from "vue"
+
+definePageMeta({
+    layout: "single-page"
+})
 
 // Input values
 const inputValue = ref<number>(0)
