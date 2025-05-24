@@ -9,6 +9,10 @@ export default defineNuxtConfig({
     devtools: { enabled: true },
     css: ["~/assets/css/main.css"],
     vite: {
+        optimizeDeps: {
+            include: ["@headlessui/vue", "@heroicons/vue"],
+            exclude: ["vue-demi"]
+        },
         plugins: [tailwindcss()]
     },
     modules: ["@nuxt/eslint"]
