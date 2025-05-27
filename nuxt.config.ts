@@ -1,5 +1,3 @@
-import tailwindcss from "@tailwindcss/vite"
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     app: {
@@ -12,8 +10,7 @@ export default defineNuxtConfig({
         optimizeDeps: {
             include: ["@headlessui/vue", "@heroicons/vue"],
             exclude: ["vue-demi"]
-        },
-        plugins: [tailwindcss()]
+        }
     },
-    modules: ["@nuxt/eslint"]
+    modules: ["@nuxt/eslint", "@nuxtjs/tailwindcss"]
 })
