@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from "@tailwindcss/vite"
+
 export default defineNuxtConfig({
     app: {
         layoutTransition: { name: "layout", mode: "out-in" }
@@ -10,7 +12,8 @@ export default defineNuxtConfig({
         optimizeDeps: {
             include: ["@headlessui/vue", "@heroicons/vue"],
             exclude: ["vue-demi"]
-        }
+        },
+        plugins: [tailwindcss()]
     },
-    modules: ["@nuxt/eslint", "@nuxtjs/tailwindcss"]
+    modules: ["@nuxt/eslint"]
 })
