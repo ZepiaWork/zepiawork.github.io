@@ -6,72 +6,37 @@ export default defineNuxtConfig({
         layoutTransition: { name: "layout", mode: "out-in" }
     },
     compatibilityDate: "2024-11-01",
-    devtools: { enabled: false }, // Disable in production
+    devtools: { enabled: false },
     css: ["~/assets/css/main.css"],
 
-    // Build optimizations
+    // Remove @nuxtjs/tailwindcss from modules since we're using v4
+    modules: ["@nuxt/eslint"],
+
     nitro: {
         compressPublicAssets: true,
         minify: true,
         preset: process.env.NITRO_PRESET || "node-server"
     },
 
-    // Optimization settings
-    optimization: {
-        treeShake: {
-            composables: {
-                // server: true,
-                // client: true
-            }
-        }
-    },
-
-    // TypeScript configuration
-    typescript: {
-        typeCheck: process.env.NODE_ENV === "development" ? "build" : false
-    },
-
-    // Build configuration
-    build: {
-        transpile: ["@headlessui/vue", "@heroicons/vue"]
-    },
-
     vite: {
-        build: {
-            rollupOptions: {
-                output: {
-                    manualChunks: {
-                        "vue-vendor": ["vue", "vue-router"],
-                        "ui-vendor": ["@headlessui/vue", "@heroicons/vue"]
-                    }
-                }
-            },
-            cssCodeSplit: true,
-            minify: "terser",
-            terserOptions: {
-                compress: {
-                    drop_console: process.env.NODE_ENV === "production",
-                    drop_debugger: process.env.NODE_ENV === "production"
-                }
-            }
-        },
         optimizeDeps: {
             include: ["@headlessui/vue", "@heroicons/vue"],
             exclude: ["vue-demi"]
         },
         plugins: [tailwindcss()],
         css: {
-            preprocessorOptions: {
-                scss: {
-                    additionalData: `@use "~/assets/css/variables.scss" as *;`
-                }
+            postcss: {
+                plugins: [
+                    // Ensure TailwindCSS is processed correctly
+                ]
             }
         }
     },
 
-    modules: ["@nuxt/eslint"],
+    typescript: {
+        typeCheck: process.env.NODE_ENV === "development" ? "build" : false
+    },
 
-    // Experimental features for better performance
     experimental: {
         payloadExtraction: false,
         treeshakeClientOnly: true

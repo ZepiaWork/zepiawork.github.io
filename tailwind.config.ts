@@ -1,4 +1,5 @@
-/** @type {import('tailwindcss').Config} */
+import type { Config } from "tailwindcss"
+
 export default {
     content: [
         "./components/**/*.{js,vue,ts}",
@@ -9,7 +10,10 @@ export default {
         "./error.vue"
     ],
     theme: {
-        extend: {}
-    },
-    plugins: []
-}
+        extend: {
+            fontFamily: {
+                sans: ["InterVariable", "sans-serif"]
+            }
+        }
+    }
+} satisfies Config
