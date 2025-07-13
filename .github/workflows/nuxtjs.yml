@@ -91,7 +91,7 @@ jobs:
               continue-on-error: true
 
             - name: Build for production
-              run: ${{ steps.detect-package-manager.outputs.manager }} run build --preset github_pages
+              run: ${{ steps.detect-package-manager.outputs.manager }} run build
               env:
                   NITRO_PRESET: github_pages
 
