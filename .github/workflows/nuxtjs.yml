@@ -25,8 +25,8 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
-            - name: Enable CorePack
-              run: corepack enable
+#            - name: Enable CorePack
+#              run: corepack enable
 
             - name: Detect package manager
               id: detect-package-manager
@@ -49,13 +49,13 @@ jobs:
             - name: Setup Node
               uses: actions/setup-node@v4
               with:
-                  node-version: "20"
+                  node-version: "22"
                   cache: ${{ steps.detect-package-manager.outputs.manager }}
 
-            - name: Setup Pages
-              uses: actions/configure-pages@v5
-              with:
-                  static_site_generator: nuxt
+#            - name: Setup Pages
+#              uses: actions/configure-pages@v5
+#              with:
+#                  static_site_generator: nuxt
 
             # Enhanced caching strategy
             #            - name: Cache dependencies
