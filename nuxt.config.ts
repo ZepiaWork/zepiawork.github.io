@@ -35,6 +35,7 @@ export default defineNuxtConfig({
         define: {
             "process.env.DEBUG": false,
         },
+        plugins: [vuetify({ autoImport: true })],
     },
 
     modules: [
@@ -51,10 +52,6 @@ export default defineNuxtConfig({
         },
         "@nuxt/eslint",
     ],
-
-    eslint: {
-        // ESLint configuration options
-    },
 
     // Runtime config for environment variables
     runtimeConfig: {
