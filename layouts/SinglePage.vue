@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <v-app>
         <CorePageHeader />
         <div class="container mx-auto">
             <slot />
         </div>
-    </div>
+    </v-app>
 </template>
 
 <script lang="ts" setup></script>

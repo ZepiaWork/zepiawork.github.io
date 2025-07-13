@@ -1,13 +1,9 @@
 <template>
-  <div>
-    <slot />
-  </div>
+    <v-app>
+        <slot />
+    </v-app>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup></script>
 
-</script>
-
-<style>
-
-</style>
+<style></style>
