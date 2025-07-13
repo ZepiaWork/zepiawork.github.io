@@ -45,6 +45,11 @@ const menuList = [
         name: "Byte Converter",
         path: "/byteconverter",
     },
+    {
+        name: "Car Detail Generator",
+        path: "/cardetailgenerator",
+    },
+
 ]
 </script>
 
