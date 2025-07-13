@@ -15,7 +15,6 @@ import {
     VTextField,
     VSelect,
 } from "vuetify/components"
-import * as directives from "vuetify/directives"
 
 export default defineNuxtPlugin((app) => {
     const vuetify = createVuetify({
@@ -34,7 +33,6 @@ export default defineNuxtPlugin((app) => {
             VTextField,
             VSelect,
         },
-        directives,
     })
     app.vueApp.use(vuetify)
 })
