@@ -44,7 +44,7 @@ export default defineNuxtConfig({
             include: ["vuetify"],
         },
     },
-
+    plugins: ['~/plugins/vuetify.client'],
     modules: ["@nuxt/eslint"],
 
     // Runtime config for environment variables
