@@ -45,22 +45,12 @@ export default defineNuxtConfig({
                 config.plugins.push(
                     vuetify({
                         autoImport: true,
-                        theme: {
-                            defaultTheme: "light",
-                        },
                     }),
                 )
             })
         },
         "@nuxt/eslint",
     ],
-
-    // ESLint configuration
-    eslint: {
-        config: {
-            stylistic: true,
-        },
-    },
 
     // Runtime config for environment variables
     runtimeConfig: {
