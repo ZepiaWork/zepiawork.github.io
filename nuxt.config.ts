@@ -52,6 +52,10 @@ export default defineNuxtConfig({
         "@nuxt/eslint",
     ],
 
+    eslint: {
+        // ESLint configuration options
+    },
+
     // Runtime config for environment variables
     runtimeConfig: {
         public: {

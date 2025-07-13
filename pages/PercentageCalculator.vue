@@ -1,14 +1,21 @@
 <template>
     <v-container class="pa-6">
         <v-row justify="center">
-            <v-col cols="12" lg="10">
+            <v-col
+                cols="12"
+                lg="10"
+            >
                 <v-card class="elevation-3">
                     <v-card-title class="text-h4 text-center py-6 bg-primary text-white">
                         Percentage Calculator
                     </v-card-title>
 
                     <v-card-text class="pa-6">
-                        <v-tabs v-model="activeTab" color="primary" class="mb-6">
+                        <v-tabs
+                            v-model="activeTab"
+                            color="primary"
+                            class="mb-6"
+                        >
                             <v-tab value="basic">Basic Percentage</v-tab>
                             <v-tab value="increase">Percentage Increase</v-tab>
                             <v-tab value="decrease">Percentage Decrease</v-tab>
@@ -19,13 +26,16 @@
                         <v-tabs-window v-model="activeTab">
                             <!-- Basic Percentage: X is what percent of Y? -->
                             <v-tabs-window-item value="basic">
-                                <v-card variant="outlined" class="pa-4">
-                                    <v-card-subtitle class="text-h6 mb-4">
-                                        What percent is X of Y?
-                                    </v-card-subtitle>
-
+                                <v-card
+                                    variant="outlined"
+                                    class="pa-4"
+                                >
+                                    <v-card-subtitle class="text-h6 mb-4"> What percent is X of Y? </v-card-subtitle>
                                     <v-row>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
                                                 v-model="basic.value"
                                                 label="Value (X)"
@@ -35,7 +45,10 @@
                                                 step="any"
                                             />
                                         </v-col>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
                                                 v-model="basic.total"
                                                 label="Total (Y)"
@@ -45,9 +58,12 @@
                                                 step="any"
                                             />
                                         </v-col>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
-                                                :model-value="basic.result"
+                                                :model-value="basicResult"
                                                 label="Result (%)"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -61,13 +77,17 @@
 
                             <!-- Percentage Increase -->
                             <v-tabs-window-item value="increase">
-                                <v-card variant="outlined" class="pa-4">
-                                    <v-card-subtitle class="text-h6 mb-4">
-                                        Add X% to a number
-                                    </v-card-subtitle>
+                                <v-card
+                                    variant="outlined"
+                                    class="pa-4"
+                                >
+                                    <v-card-subtitle class="text-h6 mb-4"> Add X% to a number </v-card-subtitle>
 
                                     <v-row>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
                                                 v-model="increase.value"
                                                 label="Original Value"
@@ -77,7 +97,10 @@
                                                 step="any"
                                             />
                                         </v-col>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
                                                 v-model="increase.percentage"
                                                 label="Percentage to Add"
@@ -88,9 +111,12 @@
                                                 suffix="%"
                                             />
                                         </v-col>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
-                                                :model-value="increase.result"
+                                                :model-value="increaseResult"
                                                 label="Result"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -103,13 +129,17 @@
 
                             <!-- Percentage Decrease -->
                             <v-tabs-window-item value="decrease">
-                                <v-card variant="outlined" class="pa-4">
-                                    <v-card-subtitle class="text-h6 mb-4">
-                                        Subtract X% from a number
-                                    </v-card-subtitle>
+                                <v-card
+                                    variant="outlined"
+                                    class="pa-4"
+                                >
+                                    <v-card-subtitle class="text-h6 mb-4"> Subtract X% from a number </v-card-subtitle>
 
                                     <v-row>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
                                                 v-model="decrease.value"
                                                 label="Original Value"
@@ -119,7 +149,10 @@
                                                 step="any"
                                             />
                                         </v-col>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
                                                 v-model="decrease.percentage"
                                                 label="Percentage to Subtract"
@@ -130,9 +163,12 @@
                                                 suffix="%"
                                             />
                                         </v-col>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
-                                                :model-value="decrease.result"
+                                                :model-value="decreaseResult"
                                                 label="Result"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -145,13 +181,17 @@
 
                             <!-- Percentage Of -->
                             <v-tabs-window-item value="of">
-                                <v-card variant="outlined" class="pa-4">
-                                    <v-card-subtitle class="text-h6 mb-4">
-                                        What is X% of Y?
-                                    </v-card-subtitle>
+                                <v-card
+                                    variant="outlined"
+                                    class="pa-4"
+                                >
+                                    <v-card-subtitle class="text-h6 mb-4"> What is X% of Y? </v-card-subtitle>
 
                                     <v-row>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
                                                 v-model="of.percentage"
                                                 label="Percentage"
@@ -162,7 +202,10 @@
                                                 suffix="%"
                                             />
                                         </v-col>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
                                                 v-model="of.value"
                                                 label="Value"
@@ -172,9 +215,12 @@
                                                 step="any"
                                             />
                                         </v-col>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
-                                                :model-value="of.result"
+                                                :model-value="ofResult"
                                                 label="Result"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -187,13 +233,19 @@
 
                             <!-- Percentage Change -->
                             <v-tabs-window-item value="change">
-                                <v-card variant="outlined" class="pa-4">
+                                <v-card
+                                    variant="outlined"
+                                    class="pa-4"
+                                >
                                     <v-card-subtitle class="text-h6 mb-4">
                                         Percentage change from X to Y
                                     </v-card-subtitle>
 
                                     <v-row>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
                                                 v-model="change.oldValue"
                                                 label="Original Value"
@@ -203,7 +255,10 @@
                                                 step="any"
                                             />
                                         </v-col>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
                                                 v-model="change.newValue"
                                                 label="New Value"
@@ -213,15 +268,18 @@
                                                 step="any"
                                             />
                                         </v-col>
-                                        <v-col cols="12" md="4">
+                                        <v-col
+                                            cols="12"
+                                            md="4"
+                                        >
                                             <v-text-field
-                                                :model-value="change.result"
+                                                :model-value="changeResult"
                                                 label="Percentage Change"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 readonly
                                                 suffix="%"
-                                                :color="getChangeColor(change.result)"
+                                                :color="getChangeColor(changeResult)"
                                             />
                                         </v-col>
                                     </v-row>
@@ -255,8 +313,6 @@ const basicResult = computed(() => {
     return ((basic.value.value / basic.value.total) * 100).toFixed(2)
 })
 
-basic.value.result = basicResult
-
 // Percentage Increase: Add X% to a number
 const increase = ref({
     value: 0,
@@ -268,8 +324,6 @@ const increaseResult = computed(() => {
     const result = increase.value.value * (1 + increase.value.percentage / 100)
     return result.toFixed(2)
 })
-
-increase.value.result = increaseResult
 
 // Percentage Decrease: Subtract X% from a number
 const decrease = ref({
@@ -283,8 +337,6 @@ const decreaseResult = computed(() => {
     return result.toFixed(2)
 })
 
-decrease.value.result = decreaseResult
-
 // Percentage Of: What is X% of Y?
 const of = ref({
     percentage: 0,
@@ -297,8 +349,6 @@ const ofResult = computed(() => {
     return result.toFixed(2)
 })
 
-of.value.result = ofResult
-
 // Percentage Change: Percentage change from X to Y
 const change = ref({
     oldValue: 0,
@@ -310,8 +360,6 @@ const changeResult = computed(() => {
     const result = ((change.value.newValue - change.value.oldValue) / change.value.oldValue) * 100
     return result.toFixed(2)
 })
-
-change.value.result = changeResult
 
 // Helper function to get color based on percentage change
 const getChangeColor = (result: string) => {
