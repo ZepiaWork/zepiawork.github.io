@@ -2,6 +2,7 @@ import vuetify, { transformAssetUrls } from "vite-plugin-vuetify"
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    ssr: false,
     app: {
         layoutTransition: { name: "layout", mode: "out-in" },
         baseURL: process.env.NUXT_APP_BASE_URL || "/",
@@ -15,6 +16,7 @@ export default defineNuxtConfig({
 
     // SSG Configuration for GitHub Pages
     nitro: {
+        preset: "static",
         prerender: {
             routes: ["/", "/percentagecalculator", "/byteconverter"],
         },
