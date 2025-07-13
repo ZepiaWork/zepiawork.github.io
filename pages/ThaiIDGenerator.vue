@@ -62,9 +62,9 @@
                                     <v-btn
                                         color="primary"
                                         variant="outlined"
-                                        @click="generateThaiIds"
                                         class="mb-3"
                                         block
+                                        @click="generateThaiIds"
                                     >
                                         Generate Thai ID Numbers
                                     </v-btn>
@@ -103,8 +103,8 @@
                                             variant="outlined"
                                             readonly
                                             append-inner-icon="mdi-content-copy"
-                                            @click:append-inner="copyToClipboard(id)"
                                             class="mb-2"
+                                            @click:append-inner="copyToClipboard(id)"
                                         />
 
                                         <v-row>
@@ -112,8 +112,8 @@
                                                 <v-btn
                                                     color="secondary"
                                                     variant="text"
-                                                    @click="copyAllToClipboard"
                                                     class="mt-2"
+                                                    @click="copyAllToClipboard"
                                                 >
                                                     Copy All
                                                 </v-btn>
@@ -122,8 +122,8 @@
                                                 <v-btn
                                                     color="primary"
                                                     variant="text"
-                                                    @click="toggleFormat"
                                                     class="mt-2"
+                                                    @click="toggleFormat"
                                                 >
                                                     {{ showAsPlainNumber ? "Show Formatted" : "Show Plain" }}
                                                 </v-btn>
@@ -149,9 +149,9 @@
                                         variant="outlined"
                                         density="comfortable"
                                         maxlength="17"
-                                        @input="validateId"
                                         class="mb-3"
                                         hint="You can enter with or without dashes"
+                                        @input="validateId"
                                     />
 
                                     <v-alert
