@@ -22,9 +22,6 @@ export default defineNuxtConfig({
     // SSG Configuration for GitHub Pages
     nitro: {
         preset: "static",
-        prerender: {
-            routes: ["/", "/percentagecalculator", "/byteconverter"],
-        },
     },
 
     // TypeScript configuration
@@ -44,13 +41,11 @@ export default defineNuxtConfig({
         },
         plugins: [vuetify()],
         optimizeDeps: {
-            include: ['vuetify'],
+            include: ["vuetify"],
         },
     },
 
-    modules: [
-        "@nuxt/eslint",
-    ],
+    modules: ["@nuxt/eslint"],
 
     // Runtime config for environment variables
     runtimeConfig: {

@@ -22,16 +22,6 @@ export default defineNuxtPlugin((app) => {
         ssr: false,
         components: {
             VApp,
-            VBtn,
-            VCard,
-            VCardText,
-            VCardTitle,
-            VCardSubtitle,
-            VCol,
-            VContainer,
-            VRow,
-            VTextField,
-            VSelect,
         },
     })
     app.vueApp.use(vuetify)
