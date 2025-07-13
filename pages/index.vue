@@ -49,7 +49,10 @@ const menuList = [
         name: "Car Detail Generator",
         path: "/cardetailgenerator",
     },
-
+    {
+        name: "Thai ID Generator",
+        path: "/thaiidgenerator",
+    },
 ]
 </script>
 
