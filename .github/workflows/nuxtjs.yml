@@ -25,9 +25,6 @@ jobs:
             - name: Checkout
               uses: actions/checkout@v4
 
-#            - name: Enable CorePack
-#              run: corepack enable
-
             - name: Detect package manager
               id: detect-package-manager
               run: |
@@ -52,36 +49,6 @@ jobs:
                   node-version: "22"
                   cache: ${{ steps.detect-package-manager.outputs.manager }}
 
-#            - name: Setup Pages
-#              uses: actions/configure-pages@v5
-#              with:
-#                  static_site_generator: nuxt
-
-            # Enhanced caching strategy
-            #            - name: Cache dependencies
-            #              uses: actions/cache@v4
-            #              with:
-            #                  path: |
-            #                      **/node_modules
-            #                      ~/.npm
-            #                      ~/.cache
-            #                      ~/.yarn
-            #                  key: ${{ runner.os }}-deps-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
-            #                  restore-keys: |
-            #                      ${{ runner.os }}-deps-
-
-            #            - name: Cache Nuxt build
-            #              uses: actions/cache@v4
-            #              with:
-            #                  path: |
-            #                      .nuxt
-            #                      .output
-            #                      dist
-            #                      .nitro
-            #                  key: ${{ runner.os }}-nuxt-${{ github.sha }}
-            #                  restore-keys: |
-            #                      ${{ runner.os }}-nuxt-
-
             - name: Install dependencies
               run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
 
@@ -97,11 +64,6 @@ jobs:
               run: ${{ steps.detect-package-manager.outputs.manager }} run build
               env:
                   NITRO_PRESET: github_pages
-
-            #            - name: Static HTML export with Nuxt
-            #              run: ${{ steps.detect-package-manager.outputs.manager }} run generate
-            #              env:
-            #                  NITRO_PRESET: github_pages
 
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3
