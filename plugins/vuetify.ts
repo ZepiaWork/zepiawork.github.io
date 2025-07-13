@@ -2,14 +2,38 @@
 import "@mdi/font/css/materialdesignicons.css"
 import "vuetify/styles"
 import { createVuetify } from "vuetify"
-import * as components from "vuetify/components"
+import {
+    VApp,
+    VBtn,
+    VCard,
+    VCardText,
+    VCardTitle,
+    VCardSubtitle,
+    VCol,
+    VContainer,
+    VRow,
+    VTextField,
+    VSelect,
+} from "vuetify/components"
 import * as directives from "vuetify/directives"
 
 export default defineNuxtPlugin((app) => {
     const vuetify = createVuetify({
         // ... your configuration
         ssr: false,
-        components,
+        components: {
+            VApp,
+            VBtn,
+            VCard,
+            VCardText,
+            VCardTitle,
+            VCardSubtitle,
+            VCol,
+            VContainer,
+            VRow,
+            VTextField,
+            VSelect,
+        },
         directives,
     })
     app.vueApp.use(vuetify)
