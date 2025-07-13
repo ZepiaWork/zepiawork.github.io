@@ -3,6 +3,7 @@
         <v-app>
             <NuxtPage />
         </v-app>
+        <div>v0.1</div>
     </NuxtLayout>
 </template>
 
