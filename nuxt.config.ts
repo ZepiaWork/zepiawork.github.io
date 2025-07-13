@@ -6,13 +6,18 @@ export default defineNuxtConfig({
     app: {
         layoutTransition: { name: "layout", mode: "out-in" },
         baseURL: process.env.NUXT_APP_BASE_URL || "/",
+        head: {
+            title: "Zepia Playground", // default fallback title
+            htmlAttrs: {
+                lang: "en",
+            },
+        },
     },
     build: {
         transpile: ["vuetify"],
     },
     compatibilityDate: "2024-11-01",
-    devtools: { enabled: true },
-    css: ["~/assets/css/main.css", "@mdi/font/css/materialdesignicons.css"],
+    css: ["~/assets/css/main.css"],
 
     // SSG Configuration for GitHub Pages
     nitro: {
