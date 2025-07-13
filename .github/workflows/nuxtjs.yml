@@ -55,29 +55,29 @@ jobs:
                   static_site_generator: nuxt
 
             # Enhanced caching strategy
-            - name: Cache dependencies
-              uses: actions/cache@v4
-              with:
-                  path: |
-                      **/node_modules
-                      ~/.npm
-                      ~/.cache
-                      ~/.yarn
-                  key: ${{ runner.os }}-deps-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-deps-
+#            - name: Cache dependencies
+#              uses: actions/cache@v4
+#              with:
+#                  path: |
+#                      **/node_modules
+#                      ~/.npm
+#                      ~/.cache
+#                      ~/.yarn
+#                  key: ${{ runner.os }}-deps-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
+#                  restore-keys: |
+#                      ${{ runner.os }}-deps-
 
-            - name: Cache Nuxt build
-              uses: actions/cache@v4
-              with:
-                  path: |
-                      .nuxt
-                      .output
-                      dist
-                      .nitro
-                  key: ${{ runner.os }}-nuxt-${{ github.sha }}
-                  restore-keys: |
-                      ${{ runner.os }}-nuxt-
+#            - name: Cache Nuxt build
+#              uses: actions/cache@v4
+#              with:
+#                  path: |
+#                      .nuxt
+#                      .output
+#                      dist
+#                      .nitro
+#                  key: ${{ runner.os }}-nuxt-${{ github.sha }}
+#                  restore-keys: |
+#                      ${{ runner.os }}-nuxt-
 
             - name: Install dependencies
               run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
