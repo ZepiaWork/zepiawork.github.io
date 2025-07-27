@@ -279,7 +279,7 @@ const randomInt = (min: number, max: number): number => {
     return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-// Calculate check digit for Thai ID
+// Calculate a check digit for Thai ID
 const calculateCheckDigit = (first12Digits: string): number => {
     let sum = 0
     for (let i = 0; i < 12; i++) {
@@ -299,7 +299,7 @@ const isValidThaiId = (id: string): boolean => {
         return false
     }
 
-    // Check if first digit is 0 (invalid)
+    // Check if the first digit is 0 (invalid)
     if (cleanId[0] === "0") {
         return false
     }
@@ -324,13 +324,13 @@ const generateSingleThaiId = (): string => {
         provinceCode = randomProvince.value
     }
 
-    // Generate remaining 10 digits (positions 3-12)
+    // Generate the remaining 10 digits (positions 3-12)
     let remainingDigits = ""
     for (let i = 0; i < 10; i++) {
         remainingDigits += randomInt(0, 9).toString()
     }
 
-    // Combine first 12 digits
+    // Combine the first 12 digits
     const first12Digits = provinceCode + remainingDigits
 
     // Calculate check digit
@@ -399,7 +399,7 @@ const copyToClipboard = async (text: string): Promise<void> => {
     }
 }
 
-// Copy all IDs to clipboard
+// Copy all IDs to the clipboard
 const copyAllToClipboard = async (): Promise<void> => {
     const allIds = displayedIds.value.join("\n")
     await copyToClipboard(allIds)
