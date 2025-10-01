@@ -1,29 +1,33 @@
 <template>
-    <v-container class="pa-6">
+    <v-container class="pa-2 pa-sm-4 pa-md-6">
         <v-row justify="center">
             <v-col
                 cols="12"
-                md="8"
-                lg="6"
+                sm="12"
+                md="10"
+                lg="8"
+                xl="6"
             >
-                <v-card class="elevation-3">
-                    <v-card-title class="text-h4 text-center py-6"> Car Detail Generator </v-card-title>
-                    <v-card-text class="pa-6">
+                <v-card class="elevation-2 elevation-md-4">
+                    <v-card-title class="text-h5 text-sm-h4 text-center pa-4 pa-md-6">
+                        Car Detail Generator
+                    </v-card-title>
+                    <v-card-text class="pa-4 pa-md-6">
                         <v-row>
                             <!-- Chassis Number Section -->
                             <v-col cols="12">
                                 <v-card
                                     variant="outlined"
-                                    class="pa-4 mb-4"
+                                    class="pa-3 pa-md-4 mb-3 mb-md-4"
                                 >
-                                    <v-card-subtitle class="text-subtitle-1 mb-3">
+                                    <v-card-subtitle class="text-subtitle-1 text-md-h6 mb-2 mb-md-3">
                                         Chassis Number (VIN)
                                     </v-card-subtitle>
 
                                     <v-row>
                                         <v-col
                                             cols="12"
-                                            md="6"
+                                            sm="6"
                                         >
                                             <v-select
                                                 v-model="chassisOptions.manufacturer"
@@ -31,11 +35,12 @@
                                                 label="Manufacturer"
                                                 variant="outlined"
                                                 density="comfortable"
+                                                class="mb-2 mb-sm-0"
                                             />
                                         </v-col>
                                         <v-col
                                             cols="12"
-                                            md="6"
+                                            sm="6"
                                         >
                                             <v-select
                                                 v-model="chassisOptions.year"
@@ -50,11 +55,12 @@
                                     <v-btn
                                         color="primary"
                                         variant="outlined"
-                                        class="mb-3"
+                                        class="mb-3 text-body-2 text-sm-body-1"
+                                        size="large"
                                         block
                                         @click="generateChassisNumber"
                                     >
-                                        Generate Chassis Number
+                                        <span class="d-block d-sm-inline">Generate Chassis Number</span>
                                     </v-btn>
 
                                     <v-text-field
@@ -63,6 +69,7 @@
                                         variant="outlined"
                                         readonly
                                         append-inner-icon="mdi-content-copy"
+                                        density="comfortable"
                                         @click:append-inner="copyToClipboard(generatedChassisNumber)"
                                     />
                                 </v-card>
@@ -72,14 +79,16 @@
                             <v-col cols="12">
                                 <v-card
                                     variant="outlined"
-                                    class="pa-4"
+                                    class="pa-3 pa-md-4"
                                 >
-                                    <v-card-subtitle class="text-subtitle-1 mb-3"> Engine Number </v-card-subtitle>
+                                    <v-card-subtitle class="text-subtitle-1 text-md-h6 mb-2 mb-md-3">
+                                        Engine Number
+                                    </v-card-subtitle>
 
                                     <v-row>
                                         <v-col
                                             cols="12"
-                                            md="6"
+                                            sm="6"
                                         >
                                             <v-select
                                                 v-model="engineOptions.type"
@@ -87,11 +96,12 @@
                                                 label="Engine Type"
                                                 variant="outlined"
                                                 density="comfortable"
+                                                class="mb-2 mb-sm-0"
                                             />
                                         </v-col>
                                         <v-col
                                             cols="12"
-                                            md="6"
+                                            sm="6"
                                         >
                                             <v-select
                                                 v-model="engineOptions.displacement"
@@ -106,11 +116,12 @@
                                     <v-btn
                                         color="secondary"
                                         variant="outlined"
-                                        class="mb-3"
+                                        class="mb-3 text-body-2 text-sm-body-1"
+                                        size="large"
                                         block
                                         @click="generateEngineNumber"
                                     >
-                                        Generate Engine Number
+                                        <span class="d-block d-sm-inline">Generate Engine Number</span>
                                     </v-btn>
 
                                     <v-text-field
@@ -119,6 +130,7 @@
                                         variant="outlined"
                                         readonly
                                         append-inner-icon="mdi-content-copy"
+                                        density="comfortable"
                                         @click:append-inner="copyToClipboard(generatedEngineNumber)"
                                     />
                                 </v-card>
