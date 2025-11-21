@@ -1,13 +1,14 @@
 <template>
-    <v-container class="pa-6">
+    <v-container class="pa-4 pa-md-6">
         <v-row justify="center">
             <v-col
                 cols="12"
-                md="8"
-                lg="6"
+                md="10"
+                lg="8"
+                xl="6"
             >
                 <v-card class="elevation-3">
-                    <v-card-title class="text-h4 text-center py-6"> Thai ID Card Number Generator </v-card-title>
+                    <v-card-title class="text-h5 text-md-h4 text-center py-6"> Thai ID Card Number Generator </v-card-title>
                     <v-card-text class="pa-6">
                         <v-row>
                             <!-- Generation Options -->

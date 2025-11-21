@@ -1,12 +1,13 @@
 <template>
-    <v-container class="max-width-lg">
+    <v-container class="pa-4 pa-md-6">
         <v-row justify="center">
             <v-col
                 cols="12"
-                md="8"
+                md="10"
+                lg="8"
             >
-                <v-card class="pa-6">
-                    <v-card-title class="text-h4 text-center mb-6"> Byte Unit Converter </v-card-title>
+                <v-card class="pa-4 pa-md-6">
+                    <v-card-title class="text-h5 text-md-h4 text-center mb-6"> Byte Unit Converter </v-card-title>
                     <v-row>
                         <v-col
                             cols="12"

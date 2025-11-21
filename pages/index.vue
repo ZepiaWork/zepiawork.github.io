@@ -1,14 +1,15 @@
 <template>
-    <v-container class="pa-6">
+    <v-container class="pa-4 pa-md-6">
         <v-row justify="center">
             <v-col
                 cols="12"
-                md="8"
-                lg="6"
+                md="10"
+                lg="8"
+                xl="6"
             >
                 <v-card class="elevation-3">
-                    <v-card-title class="text-h4 text-center py-6"> Available Tools </v-card-title>
-                    <v-card-text class="pa-6">
+                    <v-card-title class="text-h5 text-md-h4 text-center py-6"> Available Tools </v-card-title>
+                    <v-card-text class="pa-4 pa-md-6">
                         <v-row>
                             <v-col
                                 v-for="(item, index) in menuList"
@@ -19,10 +20,12 @@
                                 <v-btn
                                     :to="item.path"
                                     block
-                                    size="large"
+                                    size="x-large"
                                     variant="outlined"
                                     color="primary"
-                                    class="text-h6 py-6"
+                                    class="text-body-1 text-md-h6 py-6"
+                                    height="auto"
+                                    min-height="80"
                                 >
                                     {{ item.name }}
                                 </v-btn>

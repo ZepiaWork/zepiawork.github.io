@@ -9,7 +9,7 @@
                 xl="6"
             >
                 <v-card class="elevation-2 elevation-md-4">
-                    <v-card-title class="text-h5 text-sm-h4 text-center pa-4 pa-md-6">
+                    <v-card-title class="text-h5 text-md-h4 text-center pa-4 pa-md-6">
                         Car Detail Generator
                     </v-card-title>
                     <v-card-text class="pa-4 pa-md-6">

@@ -1,9 +1,11 @@
 <template>
     <v-app>
         <CorePageHeader />
-        <div class="container mx-auto">
-            <slot />
-        </div>
+        <v-main>
+            <v-container>
+                <slot />
+            </v-container>
+        </v-main>
     </v-app>
 </template>
 
