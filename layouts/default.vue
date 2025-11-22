@@ -46,6 +46,9 @@ const selectedTheme = ref(theme.global.name.value)
 const themes = [
     { title: 'Light', value: 'light' },
     { title: 'Dark', value: 'dark' },
+    { title: 'Red', value: 'red' },
+    { title: 'Green', value: 'green' },
+    { title: 'Blue', value: 'blue' },
 ]
 
 function changeTheme(newTheme: string) {
