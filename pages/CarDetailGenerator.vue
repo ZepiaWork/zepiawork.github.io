@@ -219,7 +219,7 @@ const generateRandomNumber = (length: number): string => {
 }
 
 const generateRandomAlphanumeric = (length: number): string => {
-    return generateRandomString(length, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    return generateRandomString(length, "0123456789ABCDEFGHJKLMNPRSTUVWXYZ")
 }
 
 // Year code conversion (simplified VIN year encoding)
@@ -260,7 +260,7 @@ const generateChassisNumber = (): void => {
     const year = chassisOptions.value.year
 
     // VIN-like format: 3 characters manufacturer + 6 characters vehicle descriptor + 1 char year + 1 char plant + 6 characters serial
-    const manufacturerCode = manufacturer.substring(0, 3).padEnd(3, "X")
+    const manufacturerCode = manufacturer.substring(0, 3).replace(/I/g, "1").replace(/O/g, "0").replace(/Q/g, "0").padEnd(3, "X")
     const vehicleDescriptor = generateRandomAlphanumeric(6)
     const yearCode = getYearCode(year)
     const plantCode = generateRandomAlphanumeric(1)
@@ -275,7 +275,7 @@ const generateEngineNumber = (): void => {
     const displacement = engineOptions.value.displacement
 
     // Engine number format: 2 chars type + 4 chars displacement + 8 chars serial
-    const typeCode = type.substring(0, 2)
+    const typeCode = type.substring(0, 2).replace(/I/g, "1").replace(/O/g, "0").replace(/Q/g, "0")
     const displacementCode = displacement.padStart(4, "0")
     const serialNumber = generateRandomAlphanumeric(8)
 
