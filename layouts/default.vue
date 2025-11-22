@@ -21,6 +21,8 @@
                     <v-select
                         v-model="selectedTheme"
                         :items="themes"
+                        item-title="title"
+                        item-value="value"
                         label="Theme"
                         @update:model-value="changeTheme"
                     ></v-select>
@@ -41,10 +43,13 @@ import { useTheme } from 'vuetify'
 const theme = useTheme()
 const dialog = ref(false)
 const selectedTheme = ref(theme.global.name.value)
-const themes = ['light', 'dark']
+const themes = [
+    { title: 'Light', value: 'light' },
+    { title: 'Dark', value: 'dark' },
+]
 
 function changeTheme(newTheme: string) {
-    theme.change(newTheme)
+    theme.global.name.value = newTheme
 }
 </script>
 
