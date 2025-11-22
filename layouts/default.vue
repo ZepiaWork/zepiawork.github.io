@@ -52,7 +52,7 @@ const themes = [
 ]
 
 function changeTheme(newTheme: string) {
-    theme.global.name.value = newTheme
+    theme.change(newTheme)
 }
 </script>
 
