@@ -4,7 +4,7 @@
     "type": "module",
     "scripts": {
         "build": "nuxt build",
-        "dev": "nuxt dev --host 0.0.0.0",
+        "dev": "nuxt dev",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare",
@@ -28,7 +28,7 @@
     "devDependencies": {
         "prettier": "^3.5.3",
         "typescript": "^5.8.2",
-        "vite": "^6.3.5"
+        "vite": "^7"
     },
     "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
