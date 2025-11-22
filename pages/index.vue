@@ -19,6 +19,7 @@
                             >
                                 <v-btn
                                     :to="item.path"
+                                    :prepend-icon="item.icon"
                                     block
                                     size="x-large"
                                     variant="outlined"
@@ -43,18 +44,22 @@ const menuList = [
     {
         name: "Percentage Calculator",
         path: "/percentagecalculator",
+        icon: "mdi-percent",
     },
     {
         name: "Byte Converter",
         path: "/byteconverter",
+        icon: "mdi-harddisk",
     },
     {
         name: "Car Detail Generator",
         path: "/cardetailgenerator",
+        icon: "mdi-car",
     },
     {
         name: "Thai ID Generator",
         path: "/thaiidgenerator",
+        icon: "mdi-card-account-details",
     },
 ]
 </script>
