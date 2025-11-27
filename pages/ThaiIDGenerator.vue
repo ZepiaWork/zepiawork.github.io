@@ -284,7 +284,7 @@ const randomInt = (min: number, max: number): number => {
 const calculateCheckDigit = (first12Digits: string): number => {
     let sum = 0
     for (let i = 0; i < 12; i++) {
-        sum += parseInt(first12Digits[i]) * (13 - i)
+        sum += parseInt(first12Digits[i] || "0") * (13 - i)
     }
     const remainder = sum % 11
     return remainder < 2 ? remainder : 11 - remainder
@@ -307,7 +307,7 @@ const isValidThaiId = (id: string): boolean => {
 
     // Calculate and verify check digit
     const first12 = cleanId.substring(0, 12)
-    const checkDigit = parseInt(cleanId[12])
+    const checkDigit = parseInt(cleanId[12] || "0")
     const calculatedCheckDigit = calculateCheckDigit(first12)
 
     return checkDigit === calculatedCheckDigit
@@ -322,7 +322,7 @@ const generateSingleThaiId = (): string => {
     } else {
         // Select random province code
         const randomProvince = provinces[randomInt(0, provinces.length - 1)]
-        provinceCode = randomProvince.value
+        provinceCode = randomProvince?.value || ""
     }
 
     // Generate the remaining 10 digits (positions 3-12)
