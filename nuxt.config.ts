@@ -58,6 +58,7 @@ export default defineNuxtConfig({
         langDir: 'locales/',
         strategy: 'no_prefix',
         vueI18n: './i18n.config.ts',
+        restructureDir: '',
     },
 
     // Runtime config for environment variables

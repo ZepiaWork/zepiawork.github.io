@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout>
         <NuxtPage />
-        <div class="text-center py-2 text-caption text-grey">v0.2</div>
+        <div class="text-center py-2 text-caption text-grey">v0.3</div>
     </NuxtLayout>
 </template>
 
