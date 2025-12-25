@@ -55,9 +55,13 @@ export default defineNuxtConfig({
             { code: 'de', name: 'German', file: 'de.json' },
         ],
         defaultLocale: 'en',
-        langDir: 'locales/',
+        langDir: 'locales',
         strategy: 'no_prefix',
-        vueI18n: './i18n.config.ts',
+        vueI18n: {
+            legacy: false,
+            locale: 'en',
+            fallbackLocale: 'en',
+        },
     },
 
     // Runtime config for environment variables
