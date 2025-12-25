@@ -8,7 +8,7 @@
                 xl="6"
             >
                 <v-card class="elevation-3">
-                    <v-card-title class="text-h5 text-md-h4 text-center py-6"> Available Tools </v-card-title>
+                    <v-card-title class="text-h5 text-md-h4 text-center py-6"> {{ $t('available_tools') }} </v-card-title>
                     <v-card-text class="pa-4 pa-md-6">
                         <v-row>
                             <v-col
@@ -28,7 +28,7 @@
                                     height="auto"
                                     min-height="80"
                                 >
-                                    {{ item.name }}
+                                    {{ $t(item.name) }}
                                 </v-btn>
                             </v-col>
                         </v-row>
@@ -42,22 +42,22 @@
 <script lang="ts" setup>
 const menuList = [
     {
-        name: "Percentage Calculator",
+        name: "percentage_calculator",
         path: "/percentagecalculator",
         icon: "mdi-percent",
     },
     {
-        name: "Byte Converter",
+        name: "byte_converter",
         path: "/byteconverter",
         icon: "mdi-harddisk",
     },
     {
-        name: "Car Detail Generator",
+        name: "car_detail_generator",
         path: "/cardetailgenerator",
         icon: "mdi-car",
     },
     {
-        name: "Thai ID Generator",
+        name: "thai_id_generator",
         path: "/thaiidgenerator",
         icon: "mdi-card-account-details",
     },
