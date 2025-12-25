@@ -45,7 +45,20 @@ export default defineNuxtConfig({
         },
     },
     plugins: ['~/plugins/vuetify.client'],
-    modules: ["@nuxt/eslint"],
+    modules: ["@nuxt/eslint", "@nuxtjs/i18n"],
+
+    i18n: {
+        locales: [
+            { code: 'en', name: 'English', file: 'en.json' },
+            { code: 'th', name: 'Thai', file: 'th.json' },
+            { code: 'ja', name: 'Japanese', file: 'ja.json' },
+            { code: 'de', name: 'German', file: 'de.json' },
+        ],
+        defaultLocale: 'en',
+        langDir: 'locales/',
+        strategy: 'no_prefix',
+        vueI18n: './i18n.config.ts',
+    },
 
     // Runtime config for environment variables
     runtimeConfig: {

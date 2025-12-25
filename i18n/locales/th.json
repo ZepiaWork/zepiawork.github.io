@@ -1,0 +1,12 @@
+{
+    "available_tools": "เครื่องมือที่มีให้",
+    "percentage_calculator": "เครื่องคำนวณเปอร์เซ็นต์",
+    "byte_converter": "ตัวแปลงไบต์",
+    "car_detail_generator": "เครื่องสร้างรายละเอียดรถยนต์",
+    "thai_id_generator": "เครื่องสร้างรหัสบัตรประชาชนไทย",
+    "select_theme": "เลือกธีม",
+    "theme": "ธีม",
+    "close": "ปิด",
+    "select_language": "เลือกภาษา",
+    "language": "ภาษา"
+}
