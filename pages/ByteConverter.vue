@@ -7,7 +7,7 @@
                 lg="8"
             >
                 <v-card class="pa-4 pa-md-6">
-                    <v-card-title class="text-h5 text-md-h4 text-center mb-6"> Byte Unit Converter </v-card-title>
+                    <v-card-title class="text-h5 text-md-h4 text-center mb-6"> {{ $t('byte_converter_title') }} </v-card-title>
                     <v-row>
                         <v-col
                             cols="12"
@@ -17,11 +17,11 @@
                                 variant="outlined"
                                 class="pa-4"
                             >
-                                <v-card-subtitle class="text-subtitle-1 mb-2"> From </v-card-subtitle>
+                                <v-card-subtitle class="text-subtitle-1 mb-2"> {{ $t('from') }} </v-card-subtitle>
 
                                 <v-text-field
                                     v-model="inputValue"
-                                    label="Enter value"
+                                    :label="$t('enter_value')"
                                     type="number"
                                     variant="outlined"
                                     density="comfortable"
@@ -33,10 +33,17 @@
                                 <v-select
                                     v-model="fromUnit"
                                     :items="unitOptions"
-                                    label="Select unit"
+                                    :label="$t('select_unit')"
                                     variant="outlined"
                                     density="comfortable"
-                                />
+                                >
+                                    <template #item="{ props, item }">
+                                        <v-list-item v-bind="props" :title="$t(item.raw.title)" />
+                                    </template>
+                                    <template #selection="{ item }">
+                                        {{ $t(item.raw.title) }}
+                                    </template>
+                                </v-select>
                             </v-card>
                         </v-col>
                         <v-col
@@ -47,11 +54,11 @@
                                 variant="outlined"
                                 class="pa-4"
                             >
-                                <v-card-subtitle class="text-subtitle-1 mb-2"> To </v-card-subtitle>
+                                <v-card-subtitle class="text-subtitle-1 mb-2"> {{ $t('to') }} </v-card-subtitle>
 
                                 <v-text-field
                                     v-model="outputValue"
-                                    label="Result"
+                                    :label="$t('result')"
                                     type="number"
                                     variant="outlined"
                                     density="comfortable"
@@ -61,10 +68,17 @@
                                 <v-select
                                     v-model="toUnit"
                                     :items="unitOptions"
-                                    label="Select unit"
+                                    :label="$t('select_unit')"
                                     variant="outlined"
                                     density="comfortable"
-                                />
+                                >
+                                    <template #item="{ props, item }">
+                                        <v-list-item v-bind="props" :title="$t(item.raw.title)" />
+                                    </template>
+                                    <template #selection="{ item }">
+                                        {{ $t(item.raw.title) }}
+                                    </template>
+                                </v-select>
                             </v-card>
                         </v-col>
                     </v-row>
@@ -100,11 +114,11 @@ const units = {
 
 // Unit options for v-select
 const unitOptions = [
-    { title: "Bytes", value: "bytes" },
-    { title: "Kilobytes", value: "kilobytes" },
-    { title: "Megabytes", value: "megabytes" },
-    { title: "Gigabytes", value: "gigabytes" },
-    { title: "Terabytes", value: "terabytes" },
+    { title: "bytes", value: "bytes" },
+    { title: "kilobytes", value: "kilobytes" },
+    { title: "megabytes", value: "megabytes" },
+    { title: "gigabytes", value: "gigabytes" },
+    { title: "terabytes", value: "terabytes" },
 ]
 
 // Convert between units

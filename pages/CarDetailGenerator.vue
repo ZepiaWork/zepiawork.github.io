@@ -10,7 +10,7 @@
             >
                 <v-card class="elevation-2 elevation-md-4">
                     <v-card-title class="text-h5 text-md-h4 text-center pa-4 pa-md-6">
-                        Car Detail Generator
+                        {{ $t('car_detail_generator_title') }}
                     </v-card-title>
                     <v-card-text class="pa-4 pa-md-6">
                         <v-row>
@@ -21,7 +21,7 @@
                                     class="pa-3 pa-md-4 mb-3 mb-md-4"
                                 >
                                     <v-card-subtitle class="text-subtitle-1 text-md-h6 mb-2 mb-md-3">
-                                        Chassis Number (VIN)
+                                        {{ $t('chassis_number_title') }}
                                     </v-card-subtitle>
 
                                     <v-row>
@@ -32,11 +32,20 @@
                                             <v-select
                                                 v-model="chassisOptions.manufacturer"
                                                 :items="manufacturers"
-                                                label="Manufacturer"
+                                                :label="$t('manufacturer')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 class="mb-2 mb-sm-0"
-                                            />
+                                                item-title="title"
+                                                item-value="value"
+                                            >
+                                                <template #item="{ props, item }">
+                                                    <v-list-item v-bind="props" :title="$t(item.raw.title)" />
+                                                </template>
+                                                <template #selection="{ item }">
+                                                    {{ $t(item.raw.title) }}
+                                                </template>
+                                            </v-select>
                                         </v-col>
                                         <v-col
                                             cols="12"
@@ -45,7 +54,7 @@
                                             <v-select
                                                 v-model="chassisOptions.year"
                                                 :items="years"
-                                                label="Year"
+                                                :label="$t('year')"
                                                 variant="outlined"
                                                 density="comfortable"
                                             />
@@ -60,12 +69,12 @@
                                         block
                                         @click="generateChassisNumber"
                                     >
-                                        <span class="d-block d-sm-inline">Generate Chassis Number</span>
+                                        <span class="d-block d-sm-inline">{{ $t('generate_chassis_button') }}</span>
                                     </v-btn>
 
                                     <v-text-field
                                         v-model="generatedChassisNumber"
-                                        label="Generated Chassis Number"
+                                        :label="$t('generated_chassis_label')"
                                         variant="outlined"
                                         readonly
                                         append-inner-icon="mdi-content-copy"
@@ -82,7 +91,7 @@
                                     class="pa-3 pa-md-4"
                                 >
                                     <v-card-subtitle class="text-subtitle-1 text-md-h6 mb-2 mb-md-3">
-                                        Engine Number
+                                        {{ $t('engine_number_title') }}
                                     </v-card-subtitle>
 
                                     <v-row>
@@ -93,11 +102,20 @@
                                             <v-select
                                                 v-model="engineOptions.type"
                                                 :items="engineTypes"
-                                                label="Engine Type"
+                                                :label="$t('engine_type')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 class="mb-2 mb-sm-0"
-                                            />
+                                                item-title="title"
+                                                item-value="value"
+                                            >
+                                                <template #item="{ props, item }">
+                                                    <v-list-item v-bind="props" :title="$t(item.raw.title)" />
+                                                </template>
+                                                <template #selection="{ item }">
+                                                    {{ $t(item.raw.title) }}
+                                                </template>
+                                            </v-select>
                                         </v-col>
                                         <v-col
                                             cols="12"
@@ -106,7 +124,7 @@
                                             <v-select
                                                 v-model="engineOptions.displacement"
                                                 :items="displacements"
-                                                label="Displacement"
+                                                :label="$t('displacement')"
                                                 variant="outlined"
                                                 density="comfortable"
                                             />
@@ -121,12 +139,12 @@
                                         block
                                         @click="generateEngineNumber"
                                     >
-                                        <span class="d-block d-sm-inline">Generate Engine Number</span>
+                                        <span class="d-block d-sm-inline">{{ $t('generate_engine_button') }}</span>
                                     </v-btn>
 
                                     <v-text-field
                                         v-model="generatedEngineNumber"
-                                        label="Generated Engine Number"
+                                        :label="$t('generated_engine_label')"
                                         variant="outlined"
                                         readonly
                                         append-inner-icon="mdi-content-copy"
@@ -168,16 +186,16 @@ const engineOptions = ref({
 
 // Data options
 const manufacturers = [
-    { title: "Toyota", value: "TOYOTA" },
-    { title: "Honda", value: "HONDA" },
-    { title: "Ford", value: "FORD" },
-    { title: "BMW", value: "BMW" },
-    { title: "Mercedes", value: "MERCEDES" },
-    { title: "Audi", value: "AUDI" },
-    { title: "Volkswagen", value: "VOLKSWAGEN" },
-    { title: "Nissan", value: "NISSAN" },
-    { title: "Hyundai", value: "HYUNDAI" },
-    { title: "Kia", value: "KIA" },
+    { title: "toyota", value: "TOYOTA" },
+    { title: "honda", value: "HONDA" },
+    { title: "ford", value: "FORD" },
+    { title: "bmw", value: "BMW" },
+    { title: "mercedes", value: "MERCEDES" },
+    { title: "audi", value: "AUDI" },
+    { title: "volkswagen", value: "VOLKSWAGEN" },
+    { title: "nissan", value: "NISSAN" },
+    { title: "hyundai", value: "HYUNDAI" },
+    { title: "kia", value: "KIA" },
 ]
 
 const years = Array.from({ length: 30 }, (_, i) => {
@@ -186,10 +204,10 @@ const years = Array.from({ length: 30 }, (_, i) => {
 })
 
 const engineTypes = [
-    { title: "Petrol", value: "PETROL" },
-    { title: "Diesel", value: "DIESEL" },
-    { title: "Hybrid", value: "HYBRID" },
-    { title: "Electric", value: "ELECTRIC" },
+    { title: "petrol", value: "PETROL" },
+    { title: "diesel", value: "DIESEL" },
+    { title: "hybrid", value: "HYBRID" },
+    { title: "electric", value: "ELECTRIC" },
 ]
 
 const displacements = [

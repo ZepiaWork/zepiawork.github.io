@@ -25,7 +25,14 @@
                         item-value="value"
                         :label="$t('theme')"
                         @update:model-value="changeTheme"
-                    />
+                    >
+                        <template #item="{ props, item }">
+                            <v-list-item v-bind="props" :title="$t(item.raw.value)" />
+                        </template>
+                        <template #selection="{ item }">
+                            {{ $t(item.raw.value) }}
+                        </template>
+                    </v-select>
 
                     <v-select
                         v-model="language"
@@ -33,7 +40,6 @@
                         item-title="name"
                         item-value="code"
                         :label="$t('language')"
-                        @update:model-value="changeLanguage"
                     />
                 </v-card-text>
                 <v-card-actions>
@@ -48,12 +54,11 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { useTheme } from 'vuetify'
-import { useI18n } from 'vue-i18n'
 
 type LocaleCode = 'en' | 'th' | 'ja' | 'de'
 
 const theme = useTheme()
-const { locale, locales } = useI18n()
+const { locale, locales, setLocale } = useI18n()
 const dialog = ref(false)
 const selectedTheme = ref(theme.global.name.value)
 const themes = [
@@ -65,17 +70,19 @@ const themes = [
 ]
 
 const language = ref(locale.value)
-
+ 
 function changeTheme(newTheme: string) {
     theme.change(newTheme)
 }
-
-function changeLanguage(newLocale: LocaleCode) {
-    locale.value = newLocale
-}
-
-watch(locale, (newLocale) => {
-    language.value = newLocale
+ 
+watch(language, (newVal) => {
+    if (newVal !== locale.value) {
+        setLocale(newVal)
+    }
+})
+ 
+watch(locale, (newVal) => {
+    language.value = newVal
 })
 </script>
 

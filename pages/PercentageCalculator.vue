@@ -8,7 +8,7 @@
             >
                 <v-card class="elevation-3">
                     <v-card-title class="text-h5 text-md-h4 text-center py-6 bg-primary text-white">
-                        Percentage Calculator
+                        {{ $t('percentage_calculator_title') }}
                     </v-card-title>
 
                     <v-card-text class="pa-6">
@@ -17,11 +17,11 @@
                             color="primary"
                             class="mb-6"
                         >
-                            <v-tab value="basic">Basic Percentage</v-tab>
-                            <v-tab value="increase">Percentage Increase</v-tab>
-                            <v-tab value="decrease">Percentage Decrease</v-tab>
-                            <v-tab value="of">Percentage Of</v-tab>
-                            <v-tab value="change">Percentage Change</v-tab>
+                            <v-tab value="basic">{{ $t('basic_percentage') }}</v-tab>
+                            <v-tab value="increase">{{ $t('percentage_increase') }}</v-tab>
+                            <v-tab value="decrease">{{ $t('percentage_decrease') }}</v-tab>
+                            <v-tab value="of">{{ $t('percentage_of') }}</v-tab>
+                            <v-tab value="change">{{ $t('percentage_change') }}</v-tab>
                         </v-tabs>
 
                         <v-tabs-window v-model="activeTab">
@@ -31,7 +31,7 @@
                                     variant="outlined"
                                     class="pa-4"
                                 >
-                                    <v-card-subtitle class="text-h6 mb-4"> What percent is X of Y? </v-card-subtitle>
+                                    <v-card-subtitle class="text-h6 mb-4"> {{ $t('what_percent_is_x_of_y') }} </v-card-subtitle>
                                     <v-row>
                                         <v-col
                                             cols="12"
@@ -39,7 +39,7 @@
                                         >
                                             <v-text-field
                                                 v-model="basic.value"
-                                                label="Value (X)"
+                                                :label="$t('value_x')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -52,7 +52,7 @@
                                         >
                                             <v-text-field
                                                 v-model="basic.total"
-                                                label="Total (Y)"
+                                                :label="$t('total_y')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -65,7 +65,7 @@
                                         >
                                             <v-text-field
                                                 :model-value="basicResult"
-                                                label="Result (%)"
+                                                :label="$t('result_percent')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 readonly
@@ -82,7 +82,7 @@
                                     variant="outlined"
                                     class="pa-4"
                                 >
-                                    <v-card-subtitle class="text-h6 mb-4"> Add X% to a number </v-card-subtitle>
+                                    <v-card-subtitle class="text-h6 mb-4"> {{ $t('add_x_percent_to_number') }} </v-card-subtitle>
 
                                     <v-row>
                                         <v-col
@@ -91,7 +91,7 @@
                                         >
                                             <v-text-field
                                                 v-model="increase.value"
-                                                label="Original Value"
+                                                :label="$t('original_value')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -104,7 +104,7 @@
                                         >
                                             <v-text-field
                                                 v-model="increase.percentage"
-                                                label="Percentage to Add"
+                                                :label="$t('percentage_to_add')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -118,7 +118,7 @@
                                         >
                                             <v-text-field
                                                 :model-value="increaseResult"
-                                                label="Result"
+                                                :label="$t('result')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 readonly
@@ -134,7 +134,7 @@
                                     variant="outlined"
                                     class="pa-4"
                                 >
-                                    <v-card-subtitle class="text-h6 mb-4"> Subtract X% from a number </v-card-subtitle>
+                                    <v-card-subtitle class="text-h6 mb-4"> {{ $t('subtract_x_percent_from_number') }} </v-card-subtitle>
 
                                     <v-row>
                                         <v-col
@@ -143,7 +143,7 @@
                                         >
                                             <v-text-field
                                                 v-model="decrease.value"
-                                                label="Original Value"
+                                                :label="$t('original_value')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -156,7 +156,7 @@
                                         >
                                             <v-text-field
                                                 v-model="decrease.percentage"
-                                                label="Percentage to Subtract"
+                                                :label="$t('percentage_to_subtract')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -170,7 +170,7 @@
                                         >
                                             <v-text-field
                                                 :model-value="decreaseResult"
-                                                label="Result"
+                                                :label="$t('result')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 readonly
@@ -186,7 +186,7 @@
                                     variant="outlined"
                                     class="pa-4"
                                 >
-                                    <v-card-subtitle class="text-h6 mb-4"> What is X% of Y? </v-card-subtitle>
+                                    <v-card-subtitle class="text-h6 mb-4"> {{ $t('what_is_x_percent_of_y') }} </v-card-subtitle>
 
                                     <v-row>
                                         <v-col
@@ -195,7 +195,7 @@
                                         >
                                             <v-text-field
                                                 v-model="of.percentage"
-                                                label="Percentage"
+                                                :label="$t('percentage')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -209,7 +209,7 @@
                                         >
                                             <v-text-field
                                                 v-model="of.value"
-                                                label="Value"
+                                                :label="$t('value')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -222,7 +222,7 @@
                                         >
                                             <v-text-field
                                                 :model-value="ofResult"
-                                                label="Result"
+                                                :label="$t('result')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 readonly
@@ -239,7 +239,7 @@
                                     class="pa-4"
                                 >
                                     <v-card-subtitle class="text-h6 mb-4">
-                                        Percentage change from X to Y
+                                        {{ $t('percentage_change_from_x_to_y') }}
                                     </v-card-subtitle>
 
                                     <v-row>
@@ -249,7 +249,7 @@
                                         >
                                             <v-text-field
                                                 v-model="change.oldValue"
-                                                label="Original Value"
+                                                :label="$t('original_value')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -262,7 +262,7 @@
                                         >
                                             <v-text-field
                                                 v-model="change.newValue"
-                                                label="New Value"
+                                                :label="$t('new_value')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -275,7 +275,7 @@
                                         >
                                             <v-text-field
                                                 :model-value="changeResult"
-                                                label="Percentage Change"
+                                                :label="$t('percentage_change')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 readonly

@@ -8,7 +8,7 @@
                 xl="6"
             >
                 <v-card class="elevation-3">
-                    <v-card-title class="text-h5 text-md-h4 text-center py-6"> Thai ID Card Number Generator </v-card-title>
+                    <v-card-title class="text-h5 text-md-h4 text-center py-6"> {{ $t('thai_id_generator_title') }} </v-card-title>
                     <v-card-text class="pa-6">
                         <v-row>
                             <!-- Generation Options -->
@@ -17,7 +17,7 @@
                                     variant="outlined"
                                     class="pa-4 mb-4"
                                 >
-                                    <v-card-subtitle class="text-subtitle-1 mb-3"> Generation Options </v-card-subtitle>
+                                    <v-card-subtitle class="text-subtitle-1 mb-3"> {{ $t('generation_options') }} </v-card-subtitle>
 
                                     <v-row>
                                         <v-col
@@ -27,11 +27,20 @@
                                             <v-select
                                                 v-model="selectedProvince"
                                                 :items="provinces"
-                                                label="Province (Optional)"
+                                                :label="$t('province_optional')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 clearable
-                                            />
+                                                item-title="title"
+                                                item-value="value"
+                                            >
+                                                <template #item="{ props, item }">
+                                                    <v-list-item v-bind="props" :title="$t(item.raw.title)" />
+                                                </template>
+                                                <template #selection="{ item }">
+                                                    {{ $t(item.raw.title) }}
+                                                </template>
+                                            </v-select>
                                         </v-col>
                                         <v-col
                                             cols="12"
@@ -39,7 +48,7 @@
                                         >
                                             <v-text-field
                                                 v-model="quantity"
-                                                label="Number of IDs to generate"
+                                                :label="$t('number_of_ids')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -54,7 +63,7 @@
                                         <v-col cols="12">
                                             <v-checkbox
                                                 v-model="showAsPlainNumber"
-                                                label="Show as plain number (without dashes)"
+                                                :label="$t('show_plain_number')"
                                                 density="comfortable"
                                             />
                                         </v-col>
@@ -67,7 +76,7 @@
                                         block
                                         @click="generateThaiIds"
                                     >
-                                        Generate Thai ID Numbers
+                                        {{ $t('generate_button') }}
                                     </v-btn>
                                 </v-card>
                             </v-col>
@@ -79,12 +88,12 @@
                                     class="pa-4"
                                 >
                                     <v-card-subtitle class="text-subtitle-1 mb-3">
-                                        Generated Thai ID Numbers
+                                        {{ $t('generated_ids_title') }}
                                         <span
                                             v-if="generatedIds.length > 0"
                                             class="text-caption ml-2"
                                         >
-                                            ({{ showAsPlainNumber ? "Plain format" : "Formatted" }})
+                                            ({{ showAsPlainNumber ? $t('plain_format') : $t('formatted') }})
                                         </span>
                                     </v-card-subtitle>
 
@@ -92,7 +101,7 @@
                                         v-if="generatedIds.length === 0"
                                         class="text-center text-grey"
                                     >
-                                        No IDs generated yet. Click the button above to generate.
+                                        {{ $t('no_ids_generated') }}
                                     </div>
 
                                     <div v-else>
@@ -100,7 +109,7 @@
                                             v-for="(id, index) in displayedIds"
                                             :key="index"
                                             :value="id"
-                                            :label="`Thai ID ${index + 1}`"
+                                            :label="$t('thai_id_label', { index: index + 1 })"
                                             variant="outlined"
                                             readonly
                                             append-inner-icon="mdi-content-copy"
@@ -116,7 +125,7 @@
                                                     class="mt-2"
                                                     @click="copyAllToClipboard"
                                                 >
-                                                    Copy All
+                                                    {{ $t('copy_all') }}
                                                 </v-btn>
                                             </v-col>
                                             <v-col class="text-right">
@@ -126,7 +135,7 @@
                                                     class="mt-2"
                                                     @click="toggleFormat"
                                                 >
-                                                    {{ showAsPlainNumber ? "Show Formatted" : "Show Plain" }}
+                                                    {{ showAsPlainNumber ? $t('show_formatted') : $t('show_plain') }}
                                                 </v-btn>
                                             </v-col>
                                         </v-row>
@@ -141,17 +150,17 @@
                                     class="pa-4"
                                 >
                                     <v-card-subtitle class="text-subtitle-1 mb-3">
-                                        Validate Thai ID Number
+                                        {{ $t('validate_title') }}
                                     </v-card-subtitle>
 
                                     <v-text-field
                                         v-model="idToValidate"
-                                        label="Enter Thai ID to validate"
+                                        :label="$t('enter_id_validate')"
                                         variant="outlined"
                                         density="comfortable"
                                         maxlength="17"
                                         class="mb-3"
-                                        hint="You can enter with or without dashes"
+                                        :hint="$t('validate_hint')"
                                         @input="validateId"
                                     />
 
@@ -178,6 +187,8 @@ definePageMeta({
     layout: "single-page",
 })
 
+const { t } = useI18n()
+
 // Reactive variables
 const generatedIds = ref<string[]>([])
 const selectedProvince = ref<string>("")
@@ -196,83 +207,83 @@ const displayedIds = computed(() => {
 
 // Thai province codes (first 2 digits of ID)
 const provinces = [
-    { title: "Bangkok", value: "10" },
-    { title: "Samut Prakan", value: "11" },
-    { title: "Nonthaburi", value: "12" },
-    { title: "Pathum Thani", value: "13" },
-    { title: "Phra Nakhon Si Ayutthaya", value: "14" },
-    { title: "Ang Thong", value: "15" },
-    { title: "Lopburi", value: "16" },
-    { title: "Sing Buri", value: "17" },
-    { title: "Chai Nat", value: "18" },
-    { title: "Saraburi", value: "19" },
-    { title: "Chonburi", value: "20" },
-    { title: "Rayong", value: "21" },
-    { title: "Chanthaburi", value: "22" },
-    { title: "Trat", value: "23" },
-    { title: "Chachoengsao", value: "24" },
-    { title: "Prachinburi", value: "25" },
-    { title: "Nakhon Nayok", value: "26" },
-    { title: "Sa Kaeo", value: "27" },
-    { title: "Nakhon Ratchasima", value: "30" },
-    { title: "Buriram", value: "31" },
-    { title: "Surin", value: "32" },
-    { title: "Sisaket", value: "33" },
-    { title: "Ubon Ratchathani", value: "34" },
-    { title: "Yasothon", value: "35" },
-    { title: "Chaiyaphum", value: "36" },
-    { title: "Amnat Charoen", value: "37" },
-    { title: "Bueng Kan", value: "38" },
-    { title: "Nong Bua Lam Phu", value: "39" },
-    { title: "Khon Kaen", value: "40" },
-    { title: "Udon Thani", value: "41" },
-    { title: "Loei", value: "42" },
-    { title: "Nong Khai", value: "43" },
-    { title: "Maha Sarakham", value: "44" },
-    { title: "Roi Et", value: "45" },
-    { title: "Kalasin", value: "46" },
-    { title: "Sakon Nakhon", value: "47" },
-    { title: "Nakhon Phanom", value: "48" },
-    { title: "Mukdahan", value: "49" },
-    { title: "Chiang Mai", value: "50" },
-    { title: "Lamphun", value: "51" },
-    { title: "Lampang", value: "52" },
-    { title: "Uttaradit", value: "53" },
-    { title: "Phrae", value: "54" },
-    { title: "Nan", value: "55" },
-    { title: "Phayao", value: "56" },
-    { title: "Chiang Rai", value: "57" },
-    { title: "Mae Hong Son", value: "58" },
-    { title: "Nakhon Sawan", value: "60" },
-    { title: "Uthai Thani", value: "61" },
-    { title: "Kamphaeng Phet", value: "62" },
-    { title: "Tak", value: "63" },
-    { title: "Sukhothai", value: "64" },
-    { title: "Phitsanulok", value: "65" },
-    { title: "Phichit", value: "66" },
-    { title: "Phetchabun", value: "67" },
-    { title: "Ratchaburi", value: "70" },
-    { title: "Kanchanaburi", value: "71" },
-    { title: "Suphan Buri", value: "72" },
-    { title: "Nakhon Pathom", value: "73" },
-    { title: "Samut Sakhon", value: "74" },
-    { title: "Samut Songkhram", value: "75" },
-    { title: "Phetchaburi", value: "76" },
-    { title: "Prachuap Khiri Khan", value: "77" },
-    { title: "Nakhon Si Thammarat", value: "80" },
-    { title: "Krabi", value: "81" },
-    { title: "Phang Nga", value: "82" },
-    { title: "Phuket", value: "83" },
-    { title: "Surat Thani", value: "84" },
-    { title: "Ranong", value: "85" },
-    { title: "Chumphon", value: "86" },
-    { title: "Songkhla", value: "90" },
-    { title: "Satun", value: "91" },
-    { title: "Trang", value: "92" },
-    { title: "Phatthalung", value: "93" },
-    { title: "Pattani", value: "94" },
-    { title: "Yala", value: "95" },
-    { title: "Narathiwat", value: "96" },
+    { title: "bangkok", value: "10" },
+    { title: "samut_prakan", value: "11" },
+    { title: "nonthaburi", value: "12" },
+    { title: "pathum_thani", value: "13" },
+    { title: "phra_nakhon_si_ayutthaya", value: "14" },
+    { title: "ang_thong", value: "15" },
+    { title: "lopburi", value: "16" },
+    { title: "sing_buri", value: "17" },
+    { title: "chai_nat", value: "18" },
+    { title: "saraburi", value: "19" },
+    { title: "chonburi", value: "20" },
+    { title: "rayong", value: "21" },
+    { title: "chanthaburi", value: "22" },
+    { title: "trat", value: "23" },
+    { title: "chachoengsao", value: "24" },
+    { title: "prachinburi", value: "25" },
+    { title: "nakhon_nayok", value: "26" },
+    { title: "sa_kaeo", value: "27" },
+    { title: "nakhon_ratchasima", value: "30" },
+    { title: "buriram", value: "31" },
+    { title: "surin", value: "32" },
+    { title: "sisaket", value: "33" },
+    { title: "ubon_ratchathani", value: "34" },
+    { title: "yasothon", value: "35" },
+    { title: "chaiyaphum", value: "36" },
+    { title: "amnat_charoen", value: "37" },
+    { title: "bueng_kan", value: "38" },
+    { title: "nong_bua_lam_phu", value: "39" },
+    { title: "khon_kaen", value: "40" },
+    { title: "udon_thani", value: "41" },
+    { title: "loei", value: "42" },
+    { title: "nong_khai", value: "43" },
+    { title: "maha_sarakham", value: "44" },
+    { title: "roi_et", value: "45" },
+    { title: "kalasin", value: "46" },
+    { title: "sakon_nakhon", value: "47" },
+    { title: "nakhon_phanom", value: "48" },
+    { title: "mukdahan", value: "49" },
+    { title: "chiang_mai", value: "50" },
+    { title: "lamphun", value: "51" },
+    { title: "lampang", value: "52" },
+    { title: "uttaradit", value: "53" },
+    { title: "phrae", value: "54" },
+    { title: "nan", value: "55" },
+    { title: "phayao", value: "56" },
+    { title: "chiang_rai", value: "57" },
+    { title: "mae_hong_son", value: "58" },
+    { title: "nakhon_sawan", value: "60" },
+    { title: "uthai_thani", value: "61" },
+    { title: "kamphaeng_phet", value: "62" },
+    { title: "tak", value: "63" },
+    { title: "sukhothai", value: "64" },
+    { title: "phitsanulok", value: "65" },
+    { title: "phichit", value: "66" },
+    { title: "phetchabun", value: "67" },
+    { title: "ratchaburi", value: "70" },
+    { title: "kanchanaburi", value: "71" },
+    { title: "suphan_buri", value: "72" },
+    { title: "nakhon_pathom", value: "73" },
+    { title: "samut_sakhon", value: "74" },
+    { title: "samut_songkhram", value: "75" },
+    { title: "phetchaburi", value: "76" },
+    { title: "prachuap_khiri_khan", value: "77" },
+    { title: "nakhon_si_thammarat", value: "80" },
+    { title: "krabi", value: "81" },
+    { title: "phang_nga", value: "82" },
+    { title: "phuket", value: "83" },
+    { title: "surat_thani", value: "84" },
+    { title: "ranong", value: "85" },
+    { title: "chumphon", value: "86" },
+    { title: "songkhla", value: "90" },
+    { title: "satun", value: "91" },
+    { title: "trang", value: "92" },
+    { title: "phatthalung", value: "93" },
+    { title: "pattani", value: "94" },
+    { title: "yala", value: "95" },
+    { title: "narathiwat", value: "96" },
 ]
 
 // Generate random number within range
@@ -386,7 +397,7 @@ const validateId = (): void => {
     const isValid = isValidThaiId(idToValidate.value)
     validationResult.value = {
         isValid,
-        message: isValid ? "Valid Thai ID number" : "Invalid Thai ID number",
+        message: isValid ? t("valid_id_msg") : t("invalid_id_msg"),
     }
 }
 
