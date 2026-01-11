@@ -165,5 +165,14 @@
     "phatthalung": "พัทลุง",
     "pattani": "ปัตตานี",
     "yala": "ยะลา",
-    "narathiwat": "นราธิวาส"
+    "narathiwat": "นราธิวาส",
+    "expense_overview": "ภาพรวมค่าใช้จ่าย",
+    "expense_name": "ชื่อค่าใช้จ่าย",
+    "amount": "จำนวนเงิน",
+    "monthly": "รายเดือน",
+    "yearly": "รายปี",
+    "add": "เพิ่ม",
+    "type": "ประเภท",
+    "no_expenses_added": "ยังไม่มีรายการค่าใช้จ่าย",
+    "delete": "ลบ"
 }

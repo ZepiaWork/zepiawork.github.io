@@ -61,6 +61,11 @@ const menuList = [
         path: "/thaiidgenerator",
         icon: "mdi-card-account-details",
     },
+    {
+        name: "expense_overview",
+        path: "/expenseoverview",
+        icon: "mdi-chart-box-outline",
+    },
 ]
 </script>
 

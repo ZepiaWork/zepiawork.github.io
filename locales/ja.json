@@ -78,5 +78,14 @@
     "dark": "ダーク",
     "red": "レッド",
     "green": "グリーン",
-    "blue": "ブルー"
+    "blue": "ブルー",
+    "expense_overview": "経費概要",
+    "expense_name": "経費名",
+    "amount": "金額",
+    "monthly": "毎月",
+    "yearly": "毎年",
+    "add": "追加",
+    "type": "タイプ",
+    "no_expenses_added": "経費はまだ追加されていません。",
+    "delete": "削除"
 }

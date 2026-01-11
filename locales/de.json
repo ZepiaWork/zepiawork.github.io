@@ -165,5 +165,14 @@
     "phatthalung": "Phatthalung",
     "pattani": "Pattani",
     "yala": "Yala",
-    "narathiwat": "Narathiwat"
+    "narathiwat": "Narathiwat",
+    "expense_overview": "Ausgabenübersicht",
+    "expense_name": "Name der Ausgabe",
+    "amount": "Betrag",
+    "monthly": "Monatlich",
+    "yearly": "Jährlich",
+    "add": "Hinzufügen",
+    "type": "Typ",
+    "no_expenses_added": "Noch keine Ausgaben hinzugefügt.",
+    "delete": "Löschen"
 }

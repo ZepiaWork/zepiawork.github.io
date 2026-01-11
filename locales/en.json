@@ -165,5 +165,14 @@
     "phatthalung": "Phatthalung",
     "pattani": "Pattani",
     "yala": "Yala",
-    "narathiwat": "Narathiwat"
+    "narathiwat": "Narathiwat",
+    "expense_overview": "Expense Overview",
+    "expense_name": "Expense Name",
+    "amount": "Amount",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "add": "Add",
+    "type": "Type",
+    "no_expenses_added": "No expenses added yet.",
+    "delete": "Delete"
 }
