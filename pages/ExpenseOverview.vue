@@ -1,14 +1,14 @@
 <template>
-    <v-container>
-        <v-row justify="center">
-            <v-col cols="12" md="10" lg="8">
-                <v-card class="elevation-3">
-                    <v-card-title class="text-h5 text-center py-4">
+    <v-container class="fill-height pb-0" fluid>
+        <v-row justify="center" class="fill-height">
+            <v-col cols="12" md="10" lg="8" class="d-flex flex-column h-100">
+                <v-card class="elevation-3 d-flex flex-column flex-grow-1 overflow-hidden">
+                    <v-card-title class="text-h5 text-center py-4 flex-shrink-0">
                         {{ $t('expense_overview') }}
                     </v-card-title>
-                    <v-card-text>
+                    <v-card-text class="d-flex flex-column flex-grow-1 overflow-hidden">
                         <!-- View Toggle -->
-                        <div class="d-flex justify-center mb-6">
+                        <div class="d-flex justify-center mb-6 flex-shrink-0">
                             <v-btn-toggle v-model="viewType" mandatory color="primary" rounded="xl" variant="outlined">
                                 <v-btn value="monthly">{{ $t('monthly') }}</v-btn>
                                 <v-btn value="yearly">{{ $t('yearly') }}</v-btn>
@@ -16,7 +16,7 @@
                         </div>
 
                         <!-- Add Expense Form -->
-                        <v-form @submit.prevent="addExpense" class="mb-6">
+                        <v-form @submit.prevent="addExpense" class="mb-6 flex-shrink-0">
                             <v-row align="center">
                                 <v-col cols="12" sm="4">
                                     <v-text-field
@@ -59,8 +59,7 @@
 
                         <!-- Visualization Area -->
                         <v-sheet
-                            class="d-flex flex-wrap align-content-start pa-4 rounded-lg bg-grey-lighten-4"
-                            min-height="400"
+                            class="d-flex flex-wrap align-content-start pa-4 rounded-lg bg-grey-lighten-4 flex-grow-1 overflow-y-auto"
                             border
                         >
                             <template v-if="displayExpenses.length > 0">
@@ -82,7 +81,7 @@
                                             color="white"
                                             class="position-absolute top-0 right-0 ma-1"
                                             style="z-index: 1;"
-                                            @click.stop="deleteExpense(index)"
+                                            @click.stop="deleteExpense(expense.originalIndex)"
                                             :title="$t('delete')"
                                         ></v-btn>
 
@@ -139,7 +138,7 @@ const expenseTypes = computed(() => [
 
 // Transform expenses for display based on current viewType
 const displayExpenses = computed(() => {
-    return expenses.value.map((e) => {
+    return expenses.value.map((e, index) => {
         let convertedAmount = e.amount
         
         if (viewType.value === 'monthly' && e.type === 'yearly') {
@@ -150,9 +149,14 @@ const displayExpenses = computed(() => {
 
         return {
             ...e,
-            convertedAmount
+            convertedAmount,
+            originalIndex: index
         }
-    })
+    }).sort((a, b) => b.convertedAmount - a.convertedAmount)
+})
+
+const totalAmount = computed(() => {
+    return displayExpenses.value.reduce((sum, e) => sum + e.convertedAmount, 0)
 })
 
 const addExpense = () => {
@@ -165,8 +169,8 @@ const addExpense = () => {
     newExpense.value.amount = 0
 }
 
-const deleteExpense = (index: number) => {
-    expenses.value.splice(index, 1)
+const deleteExpense = (originalIndex: number) => {
+    expenses.value.splice(originalIndex, 1)
 }
 
 const formatAmount = (amount: number) => {
@@ -174,14 +178,22 @@ const formatAmount = (amount: number) => {
 }
 
 const getExpenseStyle = (amount: number) => {
-    const baseSize = 50
-    // Adjust scale factor: if amount is monthly, it's smaller, so maybe scale differently?
-    // Actually, since we convert amounts, relative sizes should be fine.
-    // Monthly view: 1000/mo vs 500/yr (41/mo) -> 1000 should be huge, 41 tiny.
-    const scaleFactor = 4 
-    const dimension = Math.sqrt(amount) * scaleFactor
+    if (totalAmount.value === 0) return { width: '100px', height: '100px' }
     
-    const size = Math.max(dimension, 70) // Min size to fit text and delete button
+    // We calculate the size based on the item's share of the total.
+    // We target a reference area (e.g., 400x400) for the 100% case.
+    const referenceDimension = 400
+    const referenceArea = referenceDimension * referenceDimension
+    
+    const share = amount / totalAmount.value
+    const itemArea = share * referenceArea
+    
+    // Size is the square root of the area
+    let size = Math.sqrt(itemArea)
+    
+    // Clamp values for better UI
+    size = Math.max(size, 85)  // Ensure minimum size for text readability
+    size = Math.min(size, 450) // Prevent a single huge item from taking over the whole view
     
     return {
         width: `${size}px`,
