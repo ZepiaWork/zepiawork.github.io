@@ -55,8 +55,6 @@
 import { ref, watch } from 'vue'
 import { useTheme } from 'vuetify'
 
-type LocaleCode = 'en' | 'th' | 'ja' | 'de'
-
 const theme = useTheme()
 const { locale, locales, setLocale } = useI18n()
 const dialog = ref(false)
