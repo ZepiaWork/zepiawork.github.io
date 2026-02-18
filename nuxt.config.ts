@@ -39,7 +39,7 @@ export default defineNuxtConfig({
         define: {
             "process.env.DEBUG": false,
         },
-        plugins: [vuetify({ autoImport: true })],
+        plugins: [vuetify({ autoImport: true }) as any],
         optimizeDeps: {
             include: ["vuetify"],
         },

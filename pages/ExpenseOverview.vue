@@ -16,7 +16,7 @@
                         </div>
 
                         <!-- Add Expense Form -->
-                        <v-form @submit.prevent="addExpense" class="mb-6 flex-shrink-0">
+                        <v-form class="mb-6 flex-shrink-0" @submit.prevent="addExpense">
                             <v-row align="center">
                                 <v-col cols="12" sm="4">
                                     <v-text-field
@@ -25,7 +25,7 @@
                                         variant="outlined"
                                         density="comfortable"
                                         hide-details
-                                    ></v-text-field>
+                                    />
                                 </v-col>
                                 <v-col cols="12" sm="3">
                                     <v-text-field
@@ -35,7 +35,7 @@
                                         variant="outlined"
                                         density="comfortable"
                                         hide-details
-                                    ></v-text-field>
+                                    />
                                 </v-col>
                                 <v-col cols="12" sm="3">
                                     <v-select
@@ -47,7 +47,7 @@
                                         variant="outlined"
                                         density="comfortable"
                                         hide-details
-                                    ></v-select>
+                                    />
                                 </v-col>
                                 <v-col cols="12" sm="2">
                                     <v-btn type="submit" color="primary" block height="48">
@@ -63,10 +63,12 @@
                             border
                         >
                             <template v-if="displayExpenses.length > 0">
-                                <v-hover v-slot="{ isHovering, props }">
+                                <v-hover
+                                    v-for="(expense, index) in displayExpenses"
+                                    :key="index"
+                                    v-slot="{ props }"
+                                >
                                     <v-card
-                                        v-for="(expense, index) in displayExpenses"
-                                        :key="index"
                                         v-bind="props"
                                         :color="getExpenseColor(index)"
                                         class="ma-1 d-flex flex-column justify-center align-center text-center text-white position-relative"
@@ -75,6 +77,7 @@
                                     >
                                         <!-- Delete Button -->
                                         <v-btn
+                                            :title="$t('delete')"
                                             icon="mdi-delete"
                                             size="x-small"
                                             variant="text"
@@ -82,8 +85,7 @@
                                             class="position-absolute top-0 right-0 ma-1"
                                             style="z-index: 1;"
                                             @click.stop="deleteExpense(expense.originalIndex)"
-                                            :title="$t('delete')"
-                                        ></v-btn>
+                                        />
 
                                         <div class="text-caption font-weight-bold text-truncate w-100 px-1">
                                             {{ expense.name }}
@@ -91,7 +93,7 @@
                                         <div class="text-body-2">
                                             {{ formatAmount(expense.convertedAmount) }}
                                         </div>
-                                        <div class="text-caption opacity-70" v-if="expense.type !== viewType">
+                                        <div v-if="expense.type !== viewType" class="text-caption opacity-70">
                                             ({{ $t(expense.type) }})
                                         </div>
                                     </v-card>
