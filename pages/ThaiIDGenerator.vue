@@ -8,7 +8,7 @@
                 xl="6"
             >
                 <v-card class="elevation-3">
-                    <v-card-title class="text-h5 text-md-h4 text-center py-6"> {{ $t('thai_id_generator_title') }} </v-card-title>
+                    <v-card-title class="text-h5 text-md-h4 text-center py-6"> {{ t('thai_id_generator_title') }} </v-card-title>
                     <v-card-text class="pa-6">
                         <v-row>
                             <!-- Generation Options -->
@@ -17,7 +17,7 @@
                                     variant="outlined"
                                     class="pa-4 mb-4"
                                 >
-                                    <v-card-subtitle class="text-subtitle-1 mb-3"> {{ $t('generation_options') }} </v-card-subtitle>
+                                    <v-card-subtitle class="text-subtitle-1 mb-3"> {{ t('generation_options') }} </v-card-subtitle>
 
                                     <v-row>
                                         <v-col
@@ -27,7 +27,7 @@
                                             <v-select
                                                 v-model="selectedProvince"
                                                 :items="provinces"
-                                                :label="$t('province_optional')"
+                                                :label="t('province_optional')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 clearable
@@ -35,10 +35,10 @@
                                                 item-value="value"
                                             >
                                                 <template #item="{ props, item }">
-                                                    <v-list-item v-bind="props" :title="$t(item.raw.title)" />
+                                                    <v-list-item v-bind="props" :title="item?.raw?.title ? t(item.raw.title) : ''" />
                                                 </template>
                                                 <template #selection="{ item }">
-                                                    {{ $t(item.raw.title) }}
+                                                    {{ item?.raw?.title ? t(item.raw.title) : '' }}
                                                 </template>
                                             </v-select>
                                         </v-col>
@@ -48,7 +48,7 @@
                                         >
                                             <v-text-field
                                                 v-model="quantity"
-                                                :label="$t('number_of_ids')"
+                                                :label="t('number_of_ids')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -63,7 +63,7 @@
                                         <v-col cols="12">
                                             <v-checkbox
                                                 v-model="showAsPlainNumber"
-                                                :label="$t('show_plain_number')"
+                                                :label="t('show_plain_number')"
                                                 density="comfortable"
                                             />
                                         </v-col>
@@ -76,7 +76,7 @@
                                         block
                                         @click="generateThaiIds"
                                     >
-                                        {{ $t('generate_button') }}
+                                        {{ t('generate_button') }}
                                     </v-btn>
                                 </v-card>
                             </v-col>
@@ -88,12 +88,12 @@
                                     class="pa-4"
                                 >
                                     <v-card-subtitle class="text-subtitle-1 mb-3">
-                                        {{ $t('generated_ids_title') }}
+                                        {{ t('generated_ids_title') }}
                                         <span
                                             v-if="generatedIds.length > 0"
                                             class="text-caption ml-2"
                                         >
-                                            ({{ showAsPlainNumber ? $t('plain_format') : $t('formatted') }})
+                                            ({{ showAsPlainNumber ? t('plain_format') : t('formatted') }})
                                         </span>
                                     </v-card-subtitle>
 
@@ -101,7 +101,7 @@
                                         v-if="generatedIds.length === 0"
                                         class="text-center text-grey"
                                     >
-                                        {{ $t('no_ids_generated') }}
+                                        {{ t('no_ids_generated') }}
                                     </div>
 
                                     <div v-else>
@@ -109,7 +109,7 @@
                                             v-for="(id, index) in displayedIds"
                                             :key="index"
                                             :value="id"
-                                            :label="$t('thai_id_label', { index: index + 1 })"
+                                            :label="t('thai_id_label', { index: index + 1 })"
                                             variant="outlined"
                                             readonly
                                             append-inner-icon="mdi-content-copy"
@@ -125,7 +125,7 @@
                                                     class="mt-2"
                                                     @click="copyAllToClipboard"
                                                 >
-                                                    {{ $t('copy_all') }}
+                                                    {{ t('copy_all') }}
                                                 </v-btn>
                                             </v-col>
                                             <v-col class="text-right">
@@ -135,7 +135,7 @@
                                                     class="mt-2"
                                                     @click="toggleFormat"
                                                 >
-                                                    {{ showAsPlainNumber ? $t('show_formatted') : $t('show_plain') }}
+                                                    {{ showAsPlainNumber ? t('show_formatted') : t('show_plain') }}
                                                 </v-btn>
                                             </v-col>
                                         </v-row>
@@ -150,17 +150,17 @@
                                     class="pa-4"
                                 >
                                     <v-card-subtitle class="text-subtitle-1 mb-3">
-                                        {{ $t('validate_title') }}
+                                        {{ t('validate_title') }}
                                     </v-card-subtitle>
 
                                     <v-text-field
                                         v-model="idToValidate"
-                                        :label="$t('enter_id_validate')"
+                                        :label="t('enter_id_validate')"
                                         variant="outlined"
                                         density="comfortable"
                                         maxlength="17"
                                         class="mb-3"
-                                        :hint="$t('validate_hint')"
+                                        :hint="t('validate_hint')"
                                         @input="validateId"
                                     />
 

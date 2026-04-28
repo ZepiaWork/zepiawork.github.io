@@ -174,5 +174,12 @@
     "add": "Add",
     "type": "Type",
     "no_expenses_added": "No expenses added yet.",
-    "delete": "Delete"
+    "delete": "Delete",
+    "kanji_to_romanji": "Kanji to Romanji Translator",
+    "initializing_translator": "Initializing Translator Engine...",
+    "japanese_text": "Japanese Text (Kanji/Katakana)",
+    "enter_japanese_lyrics": "Paste lyrics here...",
+    "romanji_result": "Romanji Result",
+    "translate": "Translate",
+    "copy_result": "Copy Result"
 }

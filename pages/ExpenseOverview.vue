@@ -112,6 +112,10 @@
 import { computed, ref } from '#imports'
 import { useI18n } from 'vue-i18n'
 
+definePageMeta({
+    layout: "single-page",
+})
+
 const { t } = useI18n()
 
 type ExpenseType = 'monthly' | 'yearly'

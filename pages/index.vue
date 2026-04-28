@@ -66,6 +66,11 @@ const menuList = [
         path: "/expenseoverview",
         icon: "mdi-chart-box-outline",
     },
+    {
+        name: "kanji_to_romanji",
+        path: "/kanjitoromanji",
+        icon: "mdi-translate",
+    },
 ]
 </script>
 
