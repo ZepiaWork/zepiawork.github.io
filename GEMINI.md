@@ -1,57 +1,163 @@
-# Architectural Standards & Guidelines
+# Zepia Playground
 
-As a Senior Software Architect, I have established the following standards to ensure our codebase remains maintainable, scalable, and robust. All AI assistants (including Gemini) and human developers must adhere to these guidelines when working on this project.
+Welcome to **Zepia Playground**—a multi-utility toolbox application built using [Nuxt 3](https://nuxt.com/) and [Vuetify 3](https://vuetifyjs.com/). The project is optimized as a Static Site Generated (SSG) web application to be hosted directly on [GitHub Pages](https://zepiawork.github.io/).
 
-## 1. Clean Code Principles
+---
 
-Clean code is the foundation of a maintainable project. Follow these core principles:
+## 🛠️ Tech Stack
 
-- **Meaningful Names:** Use intention-revealing names for variables, functions, and classes. Avoid abbreviations and single-letter variables unless they are standard loop counters.
-- **Functions Should Do One Thing:** Keep functions small and focused on a single responsibility. If a function is doing multiple things, extract them into helper functions.
-- **DRY (Don't Repeat Yourself):** Avoid code duplication. Extract reused logic into shared utility functions, components, or services.
-- **KISS (Keep It Simple, Stupid):** Avoid overly complex abstractions. Choose the simplest solution that works.
-- **YAGNI (You Aren't Gonna Need It):** Do not implement features or abstractions for hypothetical future use cases. Build only what is needed now.
-- **SOLID Principles:** Follow Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion principles where applicable, particularly in object-oriented components.
-- **Fail Fast:** Validate inputs and states early. Throw meaningful errors instead of failing silently later in execution.
+*   **Framework**: [Nuxt 3](https://nuxt.com/) (Vue 3, Vue Router, Nitro Server Engine)
+*   **UI Library**: [Vuetify 3](https://vuetifyjs.com/) (with custom color palettes and material icons)
+*   **Localization (i18n)**: [@nuxtjs/i18n](https://i18n.nuxtjs.org/) (supports English, Thai, Japanese, and German)
+*   **Transliteration Engine**: [Kuroshiro](https://github.com/dodo/kuroshiro) & [Kuromoji Analyzer](https://github.com/takuyaa/kuromoji.js) (for Kanji-to-Romaji translations)
+*   **Styling & Fonts**: Vanilla CSS variables with custom `InterVariable` typography
+*   **Static Hosting**: Optimized static preset (`static`) using Nitro for deployment to GitHub Pages
 
-## 2. TypeScript Best Practices
+---
 
-TypeScript is our primary language. Strict typings are mandatory to catch errors at compile-time.
+## 📂 Project Directory Structure
 
-- **Strict Mode:** TypeScript `strict` mode must be enabled in `tsconfig.json`. Ensure `noImplicitAny`, `strictNullChecks`, etc., are active.
-- **Never use `any`:** Avoid `any` completely. Use `unknown` if the type is truly unknown, and narrow it down using type guards.
-- **Interfaces over Types:** Use `interface` for defining object shapes and contracts. Use `type` aliases for unions, intersections, and primitives.
-- **Avoid Enums:** Prefer string literal union types (`type Status = 'active' | 'inactive'`) or immutable objects (`as const`) over standard TypeScript `enum`s, as they produce cleaner transpiled JavaScript and are more predictable.
-- **Readonly by Default:** Use `readonly` for object properties and `ReadonlyArray` for arrays when data shouldn't be mutated.
-- **Utility Types:** Make heavy use of TypeScript utility types like `Partial<T>`, `Pick<T, K>`, `Omit<T, K>`, and `Record<K, V>` to avoid redefining types.
-- **Explicit Return Types:** Always explicitly define the return types of functions, particularly exported ones, to prevent unintended type inference changes.
+Below is the directory tree of the workspace:
 
-## 3. C4x Diagramming Standards
-
-When designing or documenting systems, we adhere to the **C4 model** to ensure clear, tiered communication of our architecture.
-
-- **Level 1: System Context Diagram:** Shows the software system we are building and how it fits into the world in terms of the people who use it and the other software systems it interacts with.
-- **Level 2: Container Diagram:** Zooms into the software system, showing the high-level technical building blocks (containers like web apps, single-page apps, desktop apps, databases, microservices) and how they communicate.
-- **Level 3: Component Diagram:** Zooms into an individual container to show the components inside it. Maps logical components to the application structure (e.g., controllers, services, repositories).
-- **Level 4: Code Diagram:** (Used sparingly) Zooms into an individual component to show how it is implemented as code (e.g., class diagrams or ER diagrams). Only use when the logic is exceptionally complex.
-
-**Documentation Requirement:** When introducing a new major system or significant container, update or generate the corresponding C4 diagrams using Mermaid.js syntax in our architecture documentation.
-
-Example Mermaid C4 System Context:
-```mermaid
-C4Context
-  title System Context Diagram - Example App
-
-  Person(user, "User", "A user of the application.")
-  System(app, "Our Application", "Allows users to perform core tasks.")
-  System_Ext(externalAPI, "External API", "Provides third-party data.")
-
-  Rel(user, app, "Uses", "HTTPS")
-  Rel(app, externalAPI, "Fetches data from", "REST API")
+```text
+zepiawork.github.io/
+├── .github/                 # GitHub Action workflows for CI/CD deployment
+├── assets/                  # CSS stylesheets and fonts
+│   ├── css/
+│   │   ├── fonts.css        # Font faces for variable typography
+│   │   └── main.css         # Global reset and page layout transitions
+│   └── fonts/
+│       ├── Inter-VariableFont.ttf
+│       └── Inter-Italic-VariableFont_opsz,wght.ttf
+├── components/              # Vue shared components
+│   └── Core/
+│       ├── Menu/
+│       │   └── Layout.vue   # Reserved menu layout component
+│       └── PageHeader.vue   # Standard navigation header with home button
+├── interface/               # TypeScript type and interface definitions
+│   └── MenuItem.ts          # MenuItem interface definition
+├── layouts/                 # Page layout wrappers
+│   ├── default.vue          # Primary wrapper containing theme/locale configurations
+│   └── SinglePage.vue       # Minimal layout for tool pages with back navigation
+├── locales/                 # Localization dictionaries
+│   ├── de.json              # German (Deutsch) translation dictionary
+│   ├── en.json              # English translation dictionary
+│   ├── ja.json              # Japanese (日本語) translation dictionary
+│   └── th.json              # Thai (ไทย) translation dictionary
+├── pages/                   # Application routes & utility tool pages
+│   ├── ByteConverter.vue    # Data storage size unit converter (Bytes to Terabytes)
+│   ├── CarDetailGenerator.vue # Randomized VIN & Engine number generator
+│   ├── ExpenseOverview.vue  # Proportional box visualizer budget utility
+│   ├── index.vue            # Dashboard hub / homepage listing all tools
+│   ├── KanjiToRomanji.vue   # Japanese Kanji to Romaji translation page
+│   ├── PercentageCalculator.vue # Multi-functional percentages calculator
+│   └── ThaiIDGenerator.vue  # Check-digit-validated Thai Citizen ID generator & validator
+├── plugins/                 # Nuxt client plugins
+│   └── vuetify.client.ts    # Vuetify initialization and custom color palettes
+├── public/                  # Static asset files
+├── server/                  # Server-side configurations
+│   └── tsconfig.json        # TypeScript configuration rules for Nitro endpoints
+├── app.vue                  # Primary application shell
+├── eslint.config.mjs        # ESLint flat code linting configurations
+├── global.d.ts              # Global environment type declarations
+├── i18n.config.ts           # Nuxt i18n configurations
+├── nuxt.config.ts           # Main configuration file for Nuxt
+├── package.json             # Project meta, scripts, and npm dependencies
+└── tsconfig.json            # Main configuration for compiler TypeScript
 ```
 
-## 4. Workflow & Review Process
+---
 
-- **Test-Driven Thinking:** Consider how a component will be tested before writing it. Write pure functions and decoupled side-effects to ease unit testing.
-- **Self-Documenting Code:** Write code that explains itself. Use comments to explain *why* (business logic, edge cases), not *what* or *how* (the code should make that obvious).
-- **Consistent Formatting:** Rely on Prettier and ESLint for formatting. Do not argue over styling; let the automated tools enforce the rules.
+## 🗺️ Architectural Mapping
+
+```mermaid
+graph TD
+    App[app.vue] --> DefaultLayout[layouts/default.vue]
+    App --> SinglePageLayout[layouts/SinglePage.vue]
+    
+    DefaultLayout --> PagesIndex[pages/index.vue]
+    SinglePageLayout --> ToolPages[Tool Pages]
+    
+    subgraph ToolPages
+        direction LR
+        Byte[ByteConverter]
+        Car[CarDetailGenerator]
+        Expense[ExpenseOverview]
+        Kanji[KanjiToRomanji]
+        Percent[PercentageCalculator]
+        ThaiID[ThaiIDGenerator]
+    end
+    
+    vuetifyPlugin[plugins/vuetify.client.ts] --> Vuetify[Vuetify 3 UI Engine]
+    i18nConfig[locales/ & i18n.config.ts] --> I18n[Nuxt i18n System]
+    
+    Vuetify -.-> DefaultLayout
+    I18n -.-> DefaultLayout
+    SinglePageLayout --> PageHeader[components/Core/PageHeader.vue]
+```
+
+---
+
+## 📑 Core Utilities & Tools Description
+
+### 1. 🏠 Homepage Dashboard (`pages/index.vue`)
+*   **Path**: [pages/index.vue](file:///f:/Work/zepiawork.github.io/pages/index.vue)
+*   **Description**: Serves as the navigation hub displaying links to all utility pages as custom-styled cards with icons.
+
+### 2. 🧮 Percentage Calculator (`pages/PercentageCalculator.vue`)
+*   **Path**: [pages/PercentageCalculator.vue](file:///f:/Work/zepiawork.github.io/pages/PercentageCalculator.vue)
+*   **Description**: Features a multi-tab panel for calculations including:
+    *   What percent is $X$ of $Y$?
+    *   Adding $X\%$ to a number.
+    *   Subtracting $X\%$ from a number.
+    *   What is $X\%$ of $Y$?
+    *   Percentage change from $X$ to $Y$ (styled dynamically to show green/red colors for increase/decrease).
+
+### 3. 💾 Byte Unit Converter (`pages/ByteConverter.vue`)
+*   **Path**: [pages/ByteConverter.vue](file:///f:/Work/zepiawork.github.io/pages/ByteConverter.vue)
+*   **Description**: Live unit converter mapping values between `Bytes`, `Kilobytes`, `Megabytes`, `Gigabytes`, and `Terabytes` using binary power base multipliers ($1024^n$).
+
+### 4. 🚗 Car Detail Generator (`pages/CarDetailGenerator.vue`)
+*   **Path**: [pages/CarDetailGenerator.vue](file:///f:/Work/zepiawork.github.io/pages/CarDetailGenerator.vue)
+*   **Description**: Generates randomly formatted, realistic Vehicle Identification Numbers (VIN / Chassis Number) and Engine Numbers using selectable rules (manufacturer, manufacturing year, engine type, engine displacement).
+
+### 5. 🪪 Thai ID Card Generator & Validator (`pages/ThaiIDGenerator.vue`)
+*   **Path**: [pages/ThaiIDGenerator.vue](file:///f:/Work/zepiawork.github.io/pages/ThaiIDGenerator.vue)
+*   **Description**: Generates real, validation-compliant Thai Citizen Identification Numbers based on selected provinces and formats (formatted with dashes or plain numbers). Includes a validator module checking length, format, and check-digit compliance using mathematical checksum validation.
+
+### 6. 📊 Expense Proportional Overview (`pages/ExpenseOverview.vue`)
+*   **Path**: [pages/ExpenseOverview.vue](file:///f:/Work/zepiawork.github.io/pages/ExpenseOverview.vue)
+*   **Description**: A budget tracking visualization tool. Items are represented by colored cards whose surface areas are scaled proportionally to represent their share of the total budget. Supports toggling between monthly and yearly cycles (automatically scaling amounts by $12\times$ or $/12$ where required).
+
+### 7. 💮 Japanese Kanji to Romaji Translator (`pages/KanjiToRomanji.vue`)
+*   **Path**: [pages/KanjiToRomanji.vue](file:///f:/Work/zepiawork.github.io/pages/KanjiToRomanji.vue)
+*   **Description**: Utilizes the `Kuroshiro` library with a `Kuromoji` dictionary engine fetched from a CDN to transliterate Japanese Kanji, Hiragana, and Katakana texts into spaced Romaji writing.
+
+---
+
+## 🎨 Global Layout & Configurations
+
+*   **Primary Layout ([layouts/default.vue](file:///f:/Work/zepiawork.github.io/layouts/default.vue))**: Wraps pages and hosts a settings cog interface. The cog triggers a dialog permitting users to dynamically swap theme variants and switch between languages.
+*   **Vuetify Plugin ([plugins/vuetify.client.ts](file:///f:/Work/zepiawork.github.io/plugins/vuetify.client.ts))**: Sets up client-side rendering for Vuetify. Registers five color theme palettes:
+    1.  `light` (Default Light)
+    2.  `dark` (Default Dark)
+    3.  `red` (Warm Red Theme)
+    4.  `green` (Soft Green Theme)
+    5.  `blue` (Professional Blue Theme)
+*   **Localization Dictionaries ([locales/](file:///f:/Work/zepiawork.github.io/locales))**: Holds JSON key-value translation pairs to support complete UI translations for all 4 supported languages.
+
+---
+
+## ⚙️ Development Commands
+
+Within the project root, you can run the following package scripts:
+
+| Command | Action |
+| :--- | :--- |
+| `npm run dev` | Runs the local development server at `http://localhost:3000` with HMR. |
+| `npm run build` | Builds the application bundle. |
+| `npm run generate` | Generates a static HTML build of pages (SSG) in the `.output/public` folder. |
+| `npm run preview` | Runs a local server to preview the generated static production build. |
+| `npm run lint` | Inspects code files for syntax issues using ESLint. |
+| `npm run lint:fix` | Automatically fixes simple syntax linting issues. |
+| `npm run typecheck` | Compiles typescript files in diagnostic non-emitting mode to check for errors. |
