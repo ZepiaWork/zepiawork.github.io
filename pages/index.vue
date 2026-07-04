@@ -71,6 +71,11 @@ const menuList = [
         path: "/kanjitoromanji",
         icon: "mdi-translate",
     },
+    {
+        name: "qr_code_generator",
+        path: "/qrcodegenerator",
+        icon: "mdi-qrcode",
+    },
 ]
 </script>
 
