@@ -41,7 +41,7 @@ export default defineNuxtConfig({
         },
         plugins: [vuetify({ autoImport: true })],
         optimizeDeps: {
-            include: ["vuetify"],
+            include: ["vuetify", "qrcode"],
         },
     },
     plugins: ['~/plugins/vuetify.client'],
