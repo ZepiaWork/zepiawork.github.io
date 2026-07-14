@@ -633,7 +633,7 @@ const showSnackbar = (text: string, color: string = "success") => {
 
 onMounted(() => {
     // Detect Web Share compatibility for files
-    if (navigator.share && navigator.canShare) {
+    if (typeof navigator.canShare === 'function') {
         const testFile = new File([""], "test.png", { type: "image/png" })
         canShare.value = navigator.canShare({ files: [testFile] })
     }
