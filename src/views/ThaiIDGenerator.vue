@@ -1,5 +1,6 @@
 <template>
     <v-container class="pa-4 pa-md-6">
+        <PageHeader />
         <v-row justify="center">
             <v-col
                 cols="12"
@@ -186,21 +187,10 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue"
-
-definePageMeta({
-    layout: "single-page",
-})
+import { useI18n } from "vue-i18n"
+import PageHeader from "@/components/Core/PageHeader.vue"
 
 const { t } = useI18n()
-
-useHead({
-    title: t('thai_id_generator_title') + ' | Zepia Playground',
-})
-
-useSeoMeta({
-    title: t('thai_id_generator_title'),
-    description: t('thai_id_generator_desc'),
-})
 
 // Reactive variables
 const generatedIds = ref<string[]>([])

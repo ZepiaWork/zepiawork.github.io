@@ -1,5 +1,6 @@
 <template>
-    <v-container class="pa-2 pa-sm-4 pa-md-6">
+    <v-container class="pa-4 pa-md-6">
+        <PageHeader />
         <v-row justify="center">
             <v-col
                 cols="12"
@@ -187,21 +188,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue"
-
-definePageMeta({
-    layout: "single-page",
-})
+import { useI18n } from "vue-i18n"
+import PageHeader from "@/components/Core/PageHeader.vue"
 
 const { t } = useI18n()
-
-useHead({
-    title: t('car_detail_generator_title') + ' | Zepia Playground',
-})
-
-useSeoMeta({
-    title: t('car_detail_generator_title'),
-    description: t('car_detail_generator_desc'),
-})
 
 // Reactive variables
 const generatedChassisNumber = ref<string>("")

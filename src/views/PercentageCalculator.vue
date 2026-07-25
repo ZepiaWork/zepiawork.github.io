@@ -1,5 +1,6 @@
 <template>
     <v-container class="pa-4 pa-md-6">
+        <PageHeader />
         <v-row justify="center">
             <v-col
                 cols="12"
@@ -310,21 +311,10 @@
 
 <script lang="ts" setup>
 import { ref, computed } from "vue"
-
-definePageMeta({
-    layout: "single-page",
-})
+import { useI18n } from "vue-i18n"
+import PageHeader from "@/components/Core/PageHeader.vue"
 
 const { t } = useI18n()
-
-useHead({
-    title: t('percentage_calculator_title') + ' | Zepia Playground',
-})
-
-useSeoMeta({
-    title: t('percentage_calculator_title'),
-    description: t('percentage_calculator_desc'),
-})
 
 const activeTab = ref("basic")
 const snackbar = ref(false)

@@ -1,5 +1,6 @@
 <template>
     <v-container class="pa-4 pa-md-6">
+        <PageHeader />
         <v-row justify="center">
             <v-col cols="12">
                 <v-card class="elevation-3" :loading="isInitializing">
@@ -89,23 +90,12 @@
 
 <script lang="ts" setup>
 import { ref, computed, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import PageHeader from "@/components/Core/PageHeader.vue"
 import Kuroshiro from 'kuroshiro'
 import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji'
 
-definePageMeta({
-    layout: "single-page",
-})
-
 const { t } = useI18n()
-
-useHead({
-    title: t('kanji_to_romanji') + ' | Zepia Playground',
-})
-
-useSeoMeta({
-    title: t('kanji_to_romanji'),
-    description: t('kanji_to_romanji_desc'),
-})
 
 const inputText = ref('')
 const outputText = ref('')

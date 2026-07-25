@@ -33,7 +33,7 @@
 
                     <v-select
                         v-model="language"
-                        :items="locales"
+                        :items="localesList"
                         item-title="name"
                         item-value="code"
                         :label="$t('language')"
@@ -51,11 +51,13 @@
 <script lang="ts" setup>
 import { ref, watch, onMounted } from 'vue'
 import { useTheme } from 'vuetify'
+import { useI18n } from 'vue-i18n'
 
 const theme = useTheme()
-const { locale, locales, setLocale } = useI18n()
+const { locale } = useI18n()
 const dialog = ref(false)
 const selectedTheme = ref(theme.global.name.value)
+
 const themes = [
     { title: 'Light', value: 'light' },
     { title: 'Dark', value: 'dark' },
@@ -64,21 +66,24 @@ const themes = [
     { title: 'Blue', value: 'blue' },
 ]
 
+const localesList = [
+    { code: 'en', name: 'English' },
+    { code: 'th', name: 'ไทย' },
+    { code: 'ja', name: '日本語' },
+    { code: 'de', name: 'Deutsch' },
+]
+
 const language = ref(locale.value)
 
 function changeTheme(newTheme: string) {
-    theme.change(newTheme)
-    if (import.meta.client) {
-        localStorage.setItem('zepia_theme', newTheme)
-    }
+    theme.global.name.value = newTheme
+    localStorage.setItem('zepia_theme', newTheme)
 }
 
 watch(language, (newVal) => {
     if (newVal !== locale.value) {
-        setLocale(newVal)
-        if (import.meta.client) {
-            localStorage.setItem('zepia_locale', newVal)
-        }
+        locale.value = newVal
+        localStorage.setItem('zepia_locale', newVal)
     }
 })
 
@@ -86,21 +91,16 @@ watch(locale, (newVal) => {
     language.value = newVal
 })
 
-type LocaleCode = 'en' | 'th' | 'ja' | 'de'
-
 onMounted(() => {
-    if (import.meta.client) {
-        const savedTheme = localStorage.getItem('zepia_theme')
-        if (savedTheme && themes.some(t => t.value === savedTheme)) {
-            selectedTheme.value = savedTheme
-            theme.change(savedTheme)
-        }
-        const savedLocale = localStorage.getItem('zepia_locale')
-        if (savedLocale && locales.value.some((l: { code: string }) => l.code === savedLocale)) {
-            const loc = savedLocale as LocaleCode
-            language.value = loc
-            setLocale(loc)
-        }
+    const savedTheme = localStorage.getItem('zepia_theme')
+    if (savedTheme && themes.some(t => t.value === savedTheme)) {
+        selectedTheme.value = savedTheme
+        theme.global.name.value = savedTheme
+    }
+    const savedLocale = localStorage.getItem('zepia_locale')
+    if (savedLocale && localesList.some(l => l.code === savedLocale)) {
+        language.value = savedLocale
+        locale.value = savedLocale
     }
 })
 </script>

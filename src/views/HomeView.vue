@@ -46,15 +46,6 @@
 </template>
 
 <script lang="ts" setup>
-useHead({
-    title: 'Zepia Playground - Multi-utility Toolbox',
-})
-
-useSeoMeta({
-    title: 'Zepia Playground',
-    description: 'A suite of multi-utility web tools including QR generator, Kanji converter, Byte converter, Thai ID validator, Percentage calculator, Car VIN generator, and Expense overview.',
-})
-
 const menuList = [
     {
         name: "percentage_calculator",

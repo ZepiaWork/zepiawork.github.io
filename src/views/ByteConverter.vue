@@ -1,5 +1,6 @@
 <template>
     <v-container class="pa-4 pa-md-6">
+        <PageHeader />
         <v-row justify="center">
             <v-col
                 cols="12"
@@ -23,18 +24,16 @@
                                     v-model.number="inputValue"
                                     :label="t('enter_value')"
                                     type="number"
-                                    variant="outlined"
+                                    min="0"
                                     density="comfortable"
-                                    :min="0"
-                                    step="any"
-                                    class="mb-4"
                                 />
 
                                 <v-select
                                     v-model="fromUnit"
                                     :items="unitOptions"
+                                    item-title="title"
+                                    item-value="value"
                                     :label="t('select_unit')"
-                                    variant="outlined"
                                     density="comfortable"
                                 >
                                     <template #item="{ props, item }">
@@ -46,6 +45,7 @@
                                 </v-select>
                             </v-card>
                         </v-col>
+
                         <v-col
                             cols="12"
                             md="6"
@@ -57,19 +57,18 @@
                                 <v-card-subtitle class="text-subtitle-1 mb-2"> {{ t('to') }} </v-card-subtitle>
 
                                 <v-text-field
-                                    v-model="outputValue"
+                                    :model-value="outputValue"
                                     :label="t('result')"
-                                    type="number"
-                                    variant="outlined"
-                                    density="comfortable"
                                     readonly
-                                    class="mb-4"
+                                    density="comfortable"
                                 />
+
                                 <v-select
                                     v-model="toUnit"
                                     :items="unitOptions"
+                                    item-title="title"
+                                    item-value="value"
                                     :label="t('select_unit')"
-                                    variant="outlined"
                                     density="comfortable"
                                 >
                                     <template #item="{ props, item }">
@@ -83,26 +82,45 @@
                         </v-col>
                     </v-row>
 
-                    <!-- Full Conversion Table Feature -->
-                    <v-card variant="outlined" class="pa-4 mt-6">
-                        <v-card-title class="text-subtitle-1 font-weight-bold px-0 pt-0">
-                            {{ t('all_units_table') }}
-                        </v-card-title>
-                        <v-table density="comfortable">
-                            <thead>
-                                <tr>
-                                    <th class="text-left">{{ t('unit') }}</th>
-                                    <th class="text-left">{{ t('value') }}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="unit in allConversions" :key="unit.key">
-                                    <td class="font-weight-medium">{{ t(unit.key) }}</td>
-                                    <td class="font-mono">{{ unit.formatted }}</td>
-                                </tr>
-                            </tbody>
-                        </v-table>
-                    </v-card>
+                    <!-- Full conversion breakdown table -->
+                    <v-divider class="my-6" />
+
+                    <h3 class="text-h6 mb-4">
+                        {{ t('all_units_table') }}
+                    </h3>
+
+                    <v-table density="compact">
+                        <thead>
+                            <tr>
+                                <th class="text-left">
+                                    {{ t('unit') }}
+                                </th>
+                                <th class="text-left">
+                                    {{ t('value') }}
+                                </th>
+                                <th class="text-right">
+                                    {{ t('copy') }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr
+                                v-for="item in allConversions"
+                                :key="item.key"
+                            >
+                                <td>{{ t(item.key) }}</td>
+                                <td>{{ item.formatted }}</td>
+                                <td class="text-right">
+                                    <v-btn
+                                        icon="mdi-content-copy"
+                                        size="x-small"
+                                        variant="text"
+                                        @click="copyValue(item.value)"
+                                    />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </v-table>
                 </v-card>
             </v-col>
         </v-row>
@@ -111,21 +129,10 @@
 
 <script lang="ts" setup>
 import { ref, computed, watch } from "vue"
-
-definePageMeta({
-    layout: "single-page",
-})
+import { useI18n } from "vue-i18n"
+import PageHeader from "@/components/Core/PageHeader.vue"
 
 const { t } = useI18n()
-
-useHead({
-    title: t('byte_converter_title') + ' | Zepia Playground',
-})
-
-useSeoMeta({
-    title: t('byte_converter_title'),
-    description: t('byte_converter_desc'),
-})
 
 // Input values
 const inputValue = ref<number>(0)
@@ -183,9 +190,13 @@ const allConversions = computed(() => {
     })
 })
 
+function copyValue(val: number) {
+    navigator.clipboard.writeText(val.toString())
+}
+
 watch([inputValue, fromUnit, toUnit], () => {
     convert()
-})
+}, { immediate: true })
 </script>
 
 <style scoped>

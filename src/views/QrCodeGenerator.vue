@@ -1,5 +1,6 @@
 <template>
     <v-container class="pa-4 pa-md-6">
+        <PageHeader />
         <v-row justify="center">
             <v-col
                 cols="12"
@@ -339,18 +340,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from "vue"
+import { useI18n } from "vue-i18n"
+import PageHeader from "@/components/Core/PageHeader.vue"
 import QRCode from "qrcode"
 
 const { t } = useI18n()
-
-useHead({
-    title: t('qr_code_generator_title') + ' | Zepia Playground',
-})
-
-useSeoMeta({
-    title: t('qr_code_generator_title'),
-    description: t('qr_code_generator_subtitle'),
-})
 
 // Core Reactive States
 const qrText = ref<string>("https://zepiawork.github.io")

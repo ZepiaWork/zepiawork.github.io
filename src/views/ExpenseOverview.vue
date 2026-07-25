@@ -1,5 +1,6 @@
 <template>
     <v-container class="fill-height pb-0" fluid>
+        <PageHeader />
         <v-row justify="center" class="fill-height">
             <v-col cols="12" md="10" lg="8" class="d-flex flex-column h-100">
                 <v-card class="elevation-3 d-flex flex-column flex-grow-1 overflow-hidden">
@@ -128,21 +129,10 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-
-definePageMeta({
-    layout: "single-page",
-})
+import { useI18n } from 'vue-i18n'
+import PageHeader from "@/components/Core/PageHeader.vue"
 
 const { t } = useI18n()
-
-useHead({
-    title: t('expense_overview') + ' | Zepia Playground',
-})
-
-useSeoMeta({
-    title: t('expense_overview'),
-    description: t('expense_overview_desc'),
-})
 
 type ExpenseType = 'monthly' | 'yearly'
 
