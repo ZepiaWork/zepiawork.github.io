@@ -10,7 +10,7 @@
             >
                 <v-card class="elevation-2 elevation-md-4">
                     <v-card-title class="text-h5 text-md-h4 text-center pa-4 pa-md-6">
-                        {{ $t('car_detail_generator_title') }}
+                        {{ t('car_detail_generator_title') }}
                     </v-card-title>
                     <v-card-text class="pa-4 pa-md-6">
                         <v-row>
@@ -21,7 +21,7 @@
                                     class="pa-3 pa-md-4 mb-3 mb-md-4"
                                 >
                                     <v-card-subtitle class="text-subtitle-1 text-md-h6 mb-2 mb-md-3">
-                                        {{ $t('chassis_number_title') }}
+                                        {{ t('chassis_number_title') }}
                                     </v-card-subtitle>
 
                                     <v-row>
@@ -32,7 +32,7 @@
                                             <v-select
                                                 v-model="chassisOptions.manufacturer"
                                                 :items="manufacturers"
-                                                :label="$t('manufacturer')"
+                                                :label="t('manufacturer')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 class="mb-2 mb-sm-0"
@@ -40,10 +40,10 @@
                                                 item-value="value"
                                             >
                                                 <template #item="{ props, item }">
-                                                    <v-list-item v-bind="props" :title="$t(item.raw.title)" />
+                                                    <v-list-item v-bind="props" :title="t(item.raw.title)" />
                                                 </template>
                                                 <template #selection="{ item }">
-                                                    {{ $t(item.raw.title) }}
+                                                    {{ t(item.raw.title) }}
                                                 </template>
                                             </v-select>
                                         </v-col>
@@ -54,7 +54,7 @@
                                             <v-select
                                                 v-model="chassisOptions.year"
                                                 :items="years"
-                                                :label="$t('year')"
+                                                :label="t('year')"
                                                 variant="outlined"
                                                 density="comfortable"
                                             />
@@ -69,18 +69,28 @@
                                         block
                                         @click="generateChassisNumber"
                                     >
-                                        <span class="d-block d-sm-inline">{{ $t('generate_chassis_button') }}</span>
+                                        <span class="d-block d-sm-inline">{{ t('generate_chassis_button') }}</span>
                                     </v-btn>
 
                                     <v-text-field
                                         v-model="generatedChassisNumber"
-                                        :label="$t('generated_chassis_label')"
+                                        :label="t('generated_chassis_label')"
                                         variant="outlined"
                                         readonly
                                         append-inner-icon="mdi-content-copy"
                                         density="comfortable"
                                         @click:append-inner="copyToClipboard(generatedChassisNumber)"
                                     />
+                                    <v-btn
+                                        v-if="generatedChassisNumber"
+                                        variant="text"
+                                        color="primary"
+                                        size="small"
+                                        prepend-icon="mdi-content-copy"
+                                        @click="copyToClipboard(generatedChassisNumber)"
+                                    >
+                                        {{ t('copy_chassis') }}
+                                    </v-btn>
                                 </v-card>
                             </v-col>
 
@@ -91,7 +101,7 @@
                                     class="pa-3 pa-md-4"
                                 >
                                     <v-card-subtitle class="text-subtitle-1 text-md-h6 mb-2 mb-md-3">
-                                        {{ $t('engine_number_title') }}
+                                        {{ t('engine_number_title') }}
                                     </v-card-subtitle>
 
                                     <v-row>
@@ -102,7 +112,7 @@
                                             <v-select
                                                 v-model="engineOptions.type"
                                                 :items="engineTypes"
-                                                :label="$t('engine_type')"
+                                                :label="t('engine_type')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 class="mb-2 mb-sm-0"
@@ -110,10 +120,10 @@
                                                 item-value="value"
                                             >
                                                 <template #item="{ props, item }">
-                                                    <v-list-item v-bind="props" :title="$t(item.raw.title)" />
+                                                    <v-list-item v-bind="props" :title="t(item.raw.title)" />
                                                 </template>
                                                 <template #selection="{ item }">
-                                                    {{ $t(item.raw.title) }}
+                                                    {{ t(item.raw.title) }}
                                                 </template>
                                             </v-select>
                                         </v-col>
@@ -124,7 +134,7 @@
                                             <v-select
                                                 v-model="engineOptions.displacement"
                                                 :items="displacements"
-                                                :label="$t('displacement')"
+                                                :label="t('displacement')"
                                                 variant="outlined"
                                                 density="comfortable"
                                             />
@@ -139,18 +149,28 @@
                                         block
                                         @click="generateEngineNumber"
                                     >
-                                        <span class="d-block d-sm-inline">{{ $t('generate_engine_button') }}</span>
+                                        <span class="d-block d-sm-inline">{{ t('generate_engine_button') }}</span>
                                     </v-btn>
 
                                     <v-text-field
                                         v-model="generatedEngineNumber"
-                                        :label="$t('generated_engine_label')"
+                                        :label="t('generated_engine_label')"
                                         variant="outlined"
                                         readonly
                                         append-inner-icon="mdi-content-copy"
                                         density="comfortable"
                                         @click:append-inner="copyToClipboard(generatedEngineNumber)"
                                     />
+                                    <v-btn
+                                        v-if="generatedEngineNumber"
+                                        variant="text"
+                                        color="secondary"
+                                        size="small"
+                                        prepend-icon="mdi-content-copy"
+                                        @click="copyToClipboard(generatedEngineNumber)"
+                                    >
+                                        {{ t('copy_engine') }}
+                                    </v-btn>
                                 </v-card>
                             </v-col>
                         </v-row>
@@ -158,6 +178,10 @@
                 </v-card>
             </v-col>
         </v-row>
+
+        <v-snackbar v-model="snackbar" :timeout="2000" color="success">
+            {{ snackbarText }}
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -168,9 +192,22 @@ definePageMeta({
     layout: "single-page",
 })
 
+const { t } = useI18n()
+
+useHead({
+    title: t('car_detail_generator_title') + ' | Zepia Playground',
+})
+
+useSeoMeta({
+    title: t('car_detail_generator_title'),
+    description: t('car_detail_generator_desc'),
+})
+
 // Reactive variables
 const generatedChassisNumber = ref<string>("")
 const generatedEngineNumber = ref<string>("")
+const snackbar = ref(false)
+const snackbarText = ref('')
 
 // Chassis number options
 const chassisOptions = ref({
@@ -240,7 +277,7 @@ const generateRandomAlphanumeric = (length: number): string => {
     return generateRandomString(length, "0123456789ABCDEFGHJKLMNPRSTUVWXYZ")
 }
 
-// Year code conversion (simplified VIN year encoding)
+// Year code conversion
 const getYearCode = (year: number): string => {
     const yearCodes: { [key: number]: string } = {
         2024: "P",
@@ -262,7 +299,6 @@ const getYearCode = (year: number): string => {
         2008: "7",
         2007: "6",
         2006: "5",
-        2005: "4",
         2004: "3",
         2003: "2",
         2002: "1",
@@ -272,12 +308,11 @@ const getYearCode = (year: number): string => {
     return yearCodes[year] || "A"
 }
 
-// Generate chassis number (VIN-like format)
+// Generate chassis number
 const generateChassisNumber = (): void => {
     const manufacturer = chassisOptions.value.manufacturer
     const year = chassisOptions.value.year
 
-    // VIN-like format: 3 characters manufacturer + 6 characters vehicle descriptor + 1 char year + 1 char plant + 6 characters serial
     const manufacturerCode = manufacturer.substring(0, 3).replace(/I/g, "1").replace(/O/g, "0").replace(/Q/g, "0").padEnd(3, "X")
     const vehicleDescriptor = generateRandomAlphanumeric(6)
     const yearCode = getYearCode(year)
@@ -292,7 +327,6 @@ const generateEngineNumber = (): void => {
     const type = engineOptions.value.type
     const displacement = engineOptions.value.displacement
 
-    // Engine number format: 2 chars type + 4 chars displacement + 8 chars serial
     const typeCode = type.substring(0, 2).replace(/I/g, "1").replace(/O/g, "0").replace(/Q/g, "0")
     const displacementCode = displacement.padStart(4, "0")
     const serialNumber = generateRandomAlphanumeric(8)
@@ -302,12 +336,16 @@ const generateEngineNumber = (): void => {
 
 // Copy to clipboard function
 const copyToClipboard = async (text: string): Promise<void> => {
+    if (!text) return
     try {
         await navigator.clipboard.writeText(text)
-        // You can add a toast notification here if needed
-        console.log("Copied to clipboard:", text)
+        snackbarText.value = t('copied_to_clipboard')
+        snackbar.value = true
     } catch (err) {
         console.error("Failed to copy to clipboard:", err)
     }
 }
 </script>
+
+<style scoped>
+</style>

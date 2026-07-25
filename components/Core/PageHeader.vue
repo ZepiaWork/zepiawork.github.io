@@ -7,7 +7,7 @@
             prepend-icon="mdi-home"
             class="mb-4"
         >
-            Back to Homepage
+            {{ $t('back_to_home') }}
         </v-btn>
     </div>
 </template>

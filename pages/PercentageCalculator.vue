@@ -8,7 +8,7 @@
             >
                 <v-card class="elevation-3">
                     <v-card-title class="text-h5 text-md-h4 text-center py-6 bg-primary text-white">
-                        {{ $t('percentage_calculator_title') }}
+                        {{ t('percentage_calculator_title') }}
                     </v-card-title>
 
                     <v-card-text class="pa-6">
@@ -17,11 +17,11 @@
                             color="primary"
                             class="mb-6"
                         >
-                            <v-tab value="basic">{{ $t('basic_percentage') }}</v-tab>
-                            <v-tab value="increase">{{ $t('percentage_increase') }}</v-tab>
-                            <v-tab value="decrease">{{ $t('percentage_decrease') }}</v-tab>
-                            <v-tab value="of">{{ $t('percentage_of') }}</v-tab>
-                            <v-tab value="change">{{ $t('percentage_change') }}</v-tab>
+                            <v-tab value="basic">{{ t('basic_percentage') }}</v-tab>
+                            <v-tab value="increase">{{ t('percentage_increase') }}</v-tab>
+                            <v-tab value="decrease">{{ t('percentage_decrease') }}</v-tab>
+                            <v-tab value="of">{{ t('percentage_of') }}</v-tab>
+                            <v-tab value="change">{{ t('percentage_change') }}</v-tab>
                         </v-tabs>
 
                         <v-tabs-window v-model="activeTab">
@@ -31,7 +31,7 @@
                                     variant="outlined"
                                     class="pa-4"
                                 >
-                                    <v-card-subtitle class="text-h6 mb-4"> {{ $t('what_percent_is_x_of_y') }} </v-card-subtitle>
+                                    <v-card-subtitle class="text-h6 mb-4"> {{ t('what_percent_is_x_of_y') }} </v-card-subtitle>
                                     <v-row>
                                         <v-col
                                             cols="12"
@@ -39,7 +39,7 @@
                                         >
                                             <v-text-field
                                                 v-model="basic.value"
-                                                :label="$t('value_x')"
+                                                :label="t('value_x')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -52,7 +52,7 @@
                                         >
                                             <v-text-field
                                                 v-model="basic.total"
-                                                :label="$t('total_y')"
+                                                :label="t('total_y')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -65,11 +65,13 @@
                                         >
                                             <v-text-field
                                                 :model-value="basicResult"
-                                                :label="$t('result_percent')"
+                                                :label="t('result_percent')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 readonly
                                                 suffix="%"
+                                                append-inner-icon="mdi-content-copy"
+                                                @click:append-inner="copyToClipboard(basicResult + '%')"
                                             />
                                         </v-col>
                                     </v-row>
@@ -82,7 +84,7 @@
                                     variant="outlined"
                                     class="pa-4"
                                 >
-                                    <v-card-subtitle class="text-h6 mb-4"> {{ $t('add_x_percent_to_number') }} </v-card-subtitle>
+                                    <v-card-subtitle class="text-h6 mb-4"> {{ t('add_x_percent_to_number') }} </v-card-subtitle>
 
                                     <v-row>
                                         <v-col
@@ -91,7 +93,7 @@
                                         >
                                             <v-text-field
                                                 v-model="increase.value"
-                                                :label="$t('original_value')"
+                                                :label="t('original_value')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -104,7 +106,7 @@
                                         >
                                             <v-text-field
                                                 v-model="increase.percentage"
-                                                :label="$t('percentage_to_add')"
+                                                :label="t('percentage_to_add')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -118,10 +120,12 @@
                                         >
                                             <v-text-field
                                                 :model-value="increaseResult"
-                                                :label="$t('result')"
+                                                :label="t('result')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 readonly
+                                                append-inner-icon="mdi-content-copy"
+                                                @click:append-inner="copyToClipboard(increaseResult)"
                                             />
                                         </v-col>
                                     </v-row>
@@ -134,7 +138,7 @@
                                     variant="outlined"
                                     class="pa-4"
                                 >
-                                    <v-card-subtitle class="text-h6 mb-4"> {{ $t('subtract_x_percent_from_number') }} </v-card-subtitle>
+                                    <v-card-subtitle class="text-h6 mb-4"> {{ t('subtract_x_percent_from_number') }} </v-card-subtitle>
 
                                     <v-row>
                                         <v-col
@@ -143,7 +147,7 @@
                                         >
                                             <v-text-field
                                                 v-model="decrease.value"
-                                                :label="$t('original_value')"
+                                                :label="t('original_value')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -156,7 +160,7 @@
                                         >
                                             <v-text-field
                                                 v-model="decrease.percentage"
-                                                :label="$t('percentage_to_subtract')"
+                                                :label="t('percentage_to_subtract')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -170,10 +174,12 @@
                                         >
                                             <v-text-field
                                                 :model-value="decreaseResult"
-                                                :label="$t('result')"
+                                                :label="t('result')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 readonly
+                                                append-inner-icon="mdi-content-copy"
+                                                @click:append-inner="copyToClipboard(decreaseResult)"
                                             />
                                         </v-col>
                                     </v-row>
@@ -186,7 +192,7 @@
                                     variant="outlined"
                                     class="pa-4"
                                 >
-                                    <v-card-subtitle class="text-h6 mb-4"> {{ $t('what_is_x_percent_of_y') }} </v-card-subtitle>
+                                    <v-card-subtitle class="text-h6 mb-4"> {{ t('what_is_x_percent_of_y') }} </v-card-subtitle>
 
                                     <v-row>
                                         <v-col
@@ -195,7 +201,7 @@
                                         >
                                             <v-text-field
                                                 v-model="of.percentage"
-                                                :label="$t('percentage')"
+                                                :label="t('percentage')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -209,7 +215,7 @@
                                         >
                                             <v-text-field
                                                 v-model="of.value"
-                                                :label="$t('value')"
+                                                :label="t('value')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -222,10 +228,12 @@
                                         >
                                             <v-text-field
                                                 :model-value="ofResult"
-                                                :label="$t('result')"
+                                                :label="t('result')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 readonly
+                                                append-inner-icon="mdi-content-copy"
+                                                @click:append-inner="copyToClipboard(ofResult)"
                                             />
                                         </v-col>
                                     </v-row>
@@ -239,7 +247,7 @@
                                     class="pa-4"
                                 >
                                     <v-card-subtitle class="text-h6 mb-4">
-                                        {{ $t('percentage_change_from_x_to_y') }}
+                                        {{ t('percentage_change_from_x_to_y') }}
                                     </v-card-subtitle>
 
                                     <v-row>
@@ -249,7 +257,7 @@
                                         >
                                             <v-text-field
                                                 v-model="change.oldValue"
-                                                :label="$t('original_value')"
+                                                :label="t('original_value')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -262,7 +270,7 @@
                                         >
                                             <v-text-field
                                                 v-model="change.newValue"
-                                                :label="$t('new_value')"
+                                                :label="t('new_value')"
                                                 type="number"
                                                 variant="outlined"
                                                 density="comfortable"
@@ -275,12 +283,14 @@
                                         >
                                             <v-text-field
                                                 :model-value="changeResult"
-                                                :label="$t('percentage_change')"
+                                                :label="t('percentage_change')"
                                                 variant="outlined"
                                                 density="comfortable"
                                                 readonly
                                                 suffix="%"
                                                 :color="getChangeColor(changeResult)"
+                                                append-inner-icon="mdi-content-copy"
+                                                @click:append-inner="copyToClipboard(changeResult + '%')"
                                             />
                                         </v-col>
                                     </v-row>
@@ -291,6 +301,10 @@
                 </v-card>
             </v-col>
         </v-row>
+
+        <v-snackbar v-model="snackbar" :timeout="2000" color="success">
+            {{ snackbarText }}
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -301,7 +315,27 @@ definePageMeta({
     layout: "single-page",
 })
 
+const { t } = useI18n()
+
+useHead({
+    title: t('percentage_calculator_title') + ' | Zepia Playground',
+})
+
+useSeoMeta({
+    title: t('percentage_calculator_title'),
+    description: t('percentage_calculator_desc'),
+})
+
 const activeTab = ref("basic")
+const snackbar = ref(false)
+const snackbarText = ref('')
+
+const copyToClipboard = (text: string) => {
+    if (!text) return
+    navigator.clipboard.writeText(text)
+    snackbarText.value = t('copied_to_clipboard')
+    snackbar.value = true
+}
 
 // Basic Percentage: X is what percent of Y?
 const basic = ref({

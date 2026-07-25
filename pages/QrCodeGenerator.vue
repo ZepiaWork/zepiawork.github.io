@@ -341,11 +341,16 @@
 import { ref, onMounted, watch } from "vue"
 import QRCode from "qrcode"
 
-definePageMeta({
-    layout: "single-page",
+const { t } = useI18n()
+
+useHead({
+    title: t('qr_code_generator_title') + ' | Zepia Playground',
 })
 
-const { t } = useI18n()
+useSeoMeta({
+    title: t('qr_code_generator_title'),
+    description: t('qr_code_generator_subtitle'),
+})
 
 // Core Reactive States
 const qrText = ref<string>("https://zepiawork.github.io")
@@ -689,7 +694,7 @@ onMounted(() => {
     overflow: hidden;
     display: flex;
     justify-content: center;
-    align-center: center;
+    align-items: center;
 }
 
 .qr-canvas-preview {

@@ -177,6 +177,10 @@
                 </v-card>
             </v-col>
         </v-row>
+
+        <v-snackbar v-model="snackbar" :timeout="2000" color="success">
+            {{ snackbarText }}
+        </v-snackbar>
     </v-container>
 </template>
 
@@ -189,6 +193,15 @@ definePageMeta({
 
 const { t } = useI18n()
 
+useHead({
+    title: t('thai_id_generator_title') + ' | Zepia Playground',
+})
+
+useSeoMeta({
+    title: t('thai_id_generator_title'),
+    description: t('thai_id_generator_desc'),
+})
+
 // Reactive variables
 const generatedIds = ref<string[]>([])
 const selectedProvince = ref<string>("")
@@ -196,6 +209,8 @@ const quantity = ref<number>(1)
 const idToValidate = ref<string>("")
 const validationResult = ref<{ isValid: boolean; message: string } | null>(null)
 const showAsPlainNumber = ref<boolean>(false)
+const snackbar = ref(false)
+const snackbarText = ref('')
 
 // Computed property for displayed IDs based on format preference
 const displayedIds = computed(() => {
@@ -403,9 +418,11 @@ const validateId = (): void => {
 
 // Copy to clipboard function
 const copyToClipboard = async (text: string): Promise<void> => {
+    if (!text) return
     try {
         await navigator.clipboard.writeText(text)
-        console.log("Copied to clipboard:", text)
+        snackbarText.value = t('copied_to_clipboard')
+        snackbar.value = true
     } catch (err) {
         console.error("Failed to copy to clipboard:", err)
     }

@@ -4,24 +4,36 @@
             <v-col cols="12" md="10" lg="8" class="d-flex flex-column h-100">
                 <v-card class="elevation-3 d-flex flex-column flex-grow-1 overflow-hidden">
                     <v-card-title class="text-h5 text-center py-4 flex-shrink-0">
-                        {{ $t('expense_overview') }}
+                        {{ t('expense_overview') }}
                     </v-card-title>
                     <v-card-text class="d-flex flex-column flex-grow-1 overflow-hidden">
-                        <!-- View Toggle -->
-                        <div class="d-flex justify-center mb-6 flex-shrink-0">
+                        <!-- View Toggle & Currency Selector -->
+                        <div class="d-flex justify-space-between align-center mb-6 flex-shrink-0 flex-wrap ga-2">
                             <v-btn-toggle v-model="viewType" mandatory color="primary" rounded="xl" variant="outlined">
-                                <v-btn value="monthly">{{ $t('monthly') }}</v-btn>
-                                <v-btn value="yearly">{{ $t('yearly') }}</v-btn>
+                                <v-btn value="monthly">{{ t('monthly') }}</v-btn>
+                                <v-btn value="yearly">{{ t('yearly') }}</v-btn>
                             </v-btn-toggle>
+
+                            <div class="d-flex align-center">
+                                <v-select
+                                    v-model="currency"
+                                    :items="currencies"
+                                    :label="t('currency')"
+                                    density="compact"
+                                    variant="outlined"
+                                    hide-details
+                                    style="width: 110px;"
+                                />
+                            </div>
                         </div>
 
                         <!-- Add Expense Form -->
-                        <v-form @submit.prevent="addExpense" class="mb-6 flex-shrink-0">
+                        <v-form @submit.prevent="addExpense" class="mb-4 flex-shrink-0">
                             <v-row align="center">
                                 <v-col cols="12" sm="4">
                                     <v-text-field
                                         v-model="newExpense.name"
-                                        :label="$t('expense_name')"
+                                        :label="t('expense_name')"
                                         variant="outlined"
                                         density="comfortable"
                                         hide-details
@@ -30,7 +42,7 @@
                                 <v-col cols="12" sm="3">
                                     <v-text-field
                                         v-model.number="newExpense.amount"
-                                        :label="$t('amount')"
+                                        :label="t('amount')"
                                         type="number"
                                         variant="outlined"
                                         density="comfortable"
@@ -41,7 +53,7 @@
                                     <v-select
                                         v-model="newExpense.type"
                                         :items="expenseTypes"
-                                        :label="$t('type')"
+                                        :label="t('type')"
                                         item-title="text"
                                         item-value="value"
                                         variant="outlined"
@@ -51,11 +63,17 @@
                                 </v-col>
                                 <v-col cols="12" sm="2">
                                     <v-btn type="submit" color="primary" block height="48">
-                                        {{ $t('add') }}
+                                        {{ t('add') }}
                                     </v-btn>
                                 </v-col>
-                            </v-row>
+                            </row>
                         </v-form>
+
+                        <!-- Total Banner -->
+                        <div v-if="displayExpenses.length > 0" class="d-flex justify-space-between align-center mb-4 pa-3 bg-primary text-white rounded flex-shrink-0">
+                            <span class="text-subtitle-1 font-weight-bold">{{ t('total_expenses') }} ({{ t(viewType) }})</span>
+                            <span class="text-h6 font-weight-bold">{{ currency }} {{ formatAmount(totalAmount) }}</span>
+                        </div>
 
                         <!-- Visualization Area -->
                         <v-sheet
@@ -63,42 +81,42 @@
                             border
                         >
                             <template v-if="displayExpenses.length > 0">
-                                <v-hover v-slot="{ isHovering, props }">
-                                    <v-card
-                                        v-for="(expense, index) in displayExpenses"
-                                        :key="index"
-                                        v-bind="props"
-                                        :color="getExpenseColor(index)"
-                                        class="ma-1 d-flex flex-column justify-center align-center text-center text-white position-relative"
-                                        :style="getExpenseStyle(expense.convertedAmount)"
-                                        elevation="2"
-                                    >
-                                        <!-- Delete Button -->
-                                        <v-btn
-                                            icon="mdi-delete"
-                                            size="x-small"
-                                            variant="text"
-                                            color="white"
-                                            class="position-absolute top-0 right-0 ma-1"
-                                            style="z-index: 1;"
-                                            @click.stop="deleteExpense(expense.originalIndex)"
-                                            :title="$t('delete')"
-                                        ></v-btn>
+                                <template v-for="(expense, index) in displayExpenses" :key="index">
+                                    <v-hover v-slot="{ isHovering, props }">
+                                        <v-card
+                                            v-bind="props"
+                                            :color="getExpenseColor(index)"
+                                            class="ma-1 d-flex flex-column justify-center align-center text-center text-white position-relative"
+                                            :style="getExpenseStyle(expense.convertedAmount)"
+                                            :elevation="isHovering ? 6 : 2"
+                                        >
+                                            <!-- Delete Button -->
+                                            <v-btn
+                                                icon="mdi-delete"
+                                                size="x-small"
+                                                variant="text"
+                                                color="white"
+                                                class="position-absolute top-0 right-0 ma-1"
+                                                style="z-index: 1;"
+                                                @click.stop="deleteExpense(expense.originalIndex)"
+                                                :title="t('delete')"
+                                            ></v-btn>
 
-                                        <div class="text-caption font-weight-bold text-truncate w-100 px-1">
-                                            {{ expense.name }}
-                                        </div>
-                                        <div class="text-body-2">
-                                            {{ formatAmount(expense.convertedAmount) }}
-                                        </div>
-                                        <div class="text-caption opacity-70" v-if="expense.type !== viewType">
-                                            ({{ $t(expense.type) }})
-                                        </div>
-                                    </v-card>
-                                </v-hover>
+                                            <div class="text-caption font-weight-bold text-truncate w-100 px-1">
+                                                {{ expense.name }}
+                                            </div>
+                                            <div class="text-body-2 font-weight-bold">
+                                                {{ currency }} {{ formatAmount(expense.convertedAmount) }}
+                                            </div>
+                                            <div class="text-caption opacity-70" v-if="expense.type !== viewType">
+                                                ({{ t(expense.type) }})
+                                            </div>
+                                        </v-card>
+                                    </v-hover>
+                                </template>
                             </template>
                             <div v-else class="d-flex w-100 h-100 justify-center align-center text-grey">
-                                {{ $t('no_expenses_added') }}
+                                {{ t('no_expenses_added') }}
                             </div>
                         </v-sheet>
                     </v-card-text>
@@ -109,14 +127,22 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from '#imports'
-import { useI18n } from 'vue-i18n'
+import { ref, computed } from 'vue'
 
 definePageMeta({
     layout: "single-page",
 })
 
 const { t } = useI18n()
+
+useHead({
+    title: t('expense_overview') + ' | Zepia Playground',
+})
+
+useSeoMeta({
+    title: t('expense_overview'),
+    description: t('expense_overview_desc'),
+})
 
 type ExpenseType = 'monthly' | 'yearly'
 
@@ -128,6 +154,8 @@ interface Expense {
 
 const expenses = ref<Expense[]>([])
 const viewType = ref<ExpenseType>('monthly')
+const currency = ref<string>('$')
+const currencies = ['$', '฿', '€', '¥', '£']
 
 const newExpense = ref<Expense>({
     name: '',
@@ -184,18 +212,14 @@ const formatAmount = (amount: number) => {
 const getExpenseStyle = (amount: number) => {
     if (totalAmount.value === 0) return { width: '100px', height: '100px' }
     
-    // We calculate the size based on the item's share of the total.
-    // We target a reference area (e.g., 400x400) for the 100% case.
     const referenceDimension = 400
     const referenceArea = referenceDimension * referenceDimension
     
     const share = amount / totalAmount.value
     const itemArea = share * referenceArea
     
-    // Size is the square root of the area
     let size = Math.sqrt(itemArea)
     
-    // Clamp values for better UI
     size = Math.max(size, 85)  // Ensure minimum size for text readability
     size = Math.min(size, 450) // Prevent a single huge item from taking over the whole view
     
@@ -220,7 +244,6 @@ const getExpenseColor = (index: number) => {
 .v-card {
     transition: all 0.3s ease;
 }
-/* Ensure the delete button is clickable */
 .v-btn--icon {
     opacity: 0.7;
 }
