@@ -4,7 +4,7 @@
             <v-col cols="12">
                 <v-card class="elevation-3" :loading="isInitializing">
                     <v-card-title class="text-h5 text-md-h4 py-4 d-flex align-center">
-                        <v-icon icon="mdi-translate" class="mr-3" color="primary"></v-icon>
+                        <v-icon icon="mdi-translate" class="mr-3" color="primary"/>
                         {{ t('kanji_to_romanji') }}
                     </v-card-title>
                     <v-card-subtitle v-if="isInitializing" class="text-primary pb-4">
@@ -36,7 +36,7 @@
                                     variant="outlined"
                                     rows="15"
                                     hide-details
-                                ></v-textarea>
+                                />
                             </v-col>
                             <v-col cols="12" md="6">
                                 <v-textarea
@@ -46,7 +46,7 @@
                                     rows="15"
                                     readonly
                                     hide-details
-                                ></v-textarea>
+                                />
                             </v-col>
                         </v-row>
                         
@@ -56,9 +56,9 @@
                                     color="primary"
                                     size="x-large"
                                     prepend-icon="mdi-swap-horizontal"
-                                    @click="translateText"
                                     :loading="isTranslating"
                                     :disabled="isInitializing || !inputText.trim()"
+                                    @click="translateText"
                                 >
                                     {{ t('translate') }}
                                 </v-btn>
@@ -69,8 +69,8 @@
                                     size="x-large"
                                     prepend-icon="mdi-content-copy"
                                     class="ml-4"
-                                    @click="copyResult"
                                     :disabled="!outputText"
+                                    @click="copyResult"
                                 >
                                     {{ t('copy_result') }}
                                 </v-btn>
@@ -123,6 +123,7 @@ const targetModes = computed(() => [
     { title: t('katakana'), value: 'katakana' },
 ])
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let kuroshiro: any = null
 
 onMounted(async () => {

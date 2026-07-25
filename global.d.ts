@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-extraneous-class */
 declare module 'kuroshiro' {
     export default class Kuroshiro {
         init(analyzer: any): Promise<void>;

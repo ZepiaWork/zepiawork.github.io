@@ -28,7 +28,7 @@
                         </div>
 
                         <!-- Add Expense Form -->
-                        <v-form @submit.prevent="addExpense" class="mb-4 flex-shrink-0">
+                        <v-form class="mb-4 flex-shrink-0" @submit.prevent="addExpense">
                             <v-row align="center">
                                 <v-col cols="12" sm="4">
                                     <v-text-field
@@ -37,7 +37,7 @@
                                         variant="outlined"
                                         density="comfortable"
                                         hide-details
-                                    ></v-text-field>
+                                    />
                                 </v-col>
                                 <v-col cols="12" sm="3">
                                     <v-text-field
@@ -47,7 +47,7 @@
                                         variant="outlined"
                                         density="comfortable"
                                         hide-details
-                                    ></v-text-field>
+                                    />
                                 </v-col>
                                 <v-col cols="12" sm="3">
                                     <v-select
@@ -59,14 +59,14 @@
                                         variant="outlined"
                                         density="comfortable"
                                         hide-details
-                                    ></v-select>
+                                    />
                                 </v-col>
                                 <v-col cols="12" sm="2">
                                     <v-btn type="submit" color="primary" block height="48">
                                         {{ t('add') }}
                                     </v-btn>
                                 </v-col>
-                            </row>
+                            </v-row>
                         </v-form>
 
                         <!-- Total Banner -->
@@ -98,9 +98,9 @@
                                                 color="white"
                                                 class="position-absolute top-0 right-0 ma-1"
                                                 style="z-index: 1;"
-                                                @click.stop="deleteExpense(expense.originalIndex)"
                                                 :title="t('delete')"
-                                            ></v-btn>
+                                                @click.stop="deleteExpense(expense.originalIndex)"
+                                            />
 
                                             <div class="text-caption font-weight-bold text-truncate w-100 px-1">
                                                 {{ expense.name }}
@@ -108,7 +108,7 @@
                                             <div class="text-body-2 font-weight-bold">
                                                 {{ currency }} {{ formatAmount(expense.convertedAmount) }}
                                             </div>
-                                            <div class="text-caption opacity-70" v-if="expense.type !== viewType">
+                                            <div v-if="expense.type !== viewType" class="text-caption opacity-70">
                                                 ({{ t(expense.type) }})
                                             </div>
                                         </v-card>

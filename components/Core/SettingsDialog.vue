@@ -86,6 +86,8 @@ watch(locale, (newVal) => {
     language.value = newVal
 })
 
+type LocaleCode = 'en' | 'th' | 'ja' | 'de'
+
 onMounted(() => {
     if (import.meta.client) {
         const savedTheme = localStorage.getItem('zepia_theme')
@@ -94,9 +96,10 @@ onMounted(() => {
             theme.change(savedTheme)
         }
         const savedLocale = localStorage.getItem('zepia_locale')
-        if (savedLocale && locales.value.some((l: any) => l.code === savedLocale)) {
-            language.value = savedLocale
-            setLocale(savedLocale)
+        if (savedLocale && locales.value.some((l: { code: string }) => l.code === savedLocale)) {
+            const loc = savedLocale as LocaleCode
+            language.value = loc
+            setLocale(loc)
         }
     }
 })
