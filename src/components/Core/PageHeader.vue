@@ -1,17 +1,19 @@
 <template>
-    <div class="pa-4">
-        <v-btn
-            to="/"
-            color="primary"
-            size="large"
-            prepend-icon="mdi-home"
-            class="mb-4"
-        >
-            {{ $t('back_to_home') }}
-        </v-btn>
-    </div>
+  <div class="mb-4 d-flex align-center">
+    <v-btn
+      to="/"
+      variant="tonal"
+      color="primary"
+      size="default"
+      prepend-icon="mdi-arrow-left"
+      rounded="pill"
+      class="px-4 font-weight-medium"
+    >
+      {{ $t('back_to_home') }}
+    </v-btn>
+  </div>
 </template>
 
 <script lang="ts" setup></script>
 
-<style></style>
+<style scoped></style>

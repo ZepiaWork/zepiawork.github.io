@@ -24,10 +24,13 @@
     "devDependencies": {
         "@types/node": "^25.0.3",
         "@types/qrcode": "^1.5.5",
+        "@typescript-eslint/eslint-plugin": "^8.67.0",
+        "@typescript-eslint/parser": "^8.67.0",
         "@vitejs/plugin-vue": "^6.0.8",
         "@vue/language-server": "^3.2.1",
         "cross-env": "^10.1.0",
         "eslint": "^10.0.0",
+        "eslint-plugin-vue": "^10.10.0",
         "prettier": "^3.7.4",
         "typescript": "^5.8.2",
         "unplugin-auto-import": "^19.1.0",

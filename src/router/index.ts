@@ -1,53 +1,54 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { i18n } from '../plugins/i18n'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: () => import('../views/HomeView.vue'),
-    meta: { title: 'Zepia Playground - Multi-utility Toolbox' }
+    meta: { titleKey: 'app_title' }
   },
   {
     path: '/percentagecalculator',
     name: 'percentage-calculator',
     component: () => import('../views/PercentageCalculator.vue'),
-    meta: { title: 'Percentage Calculator - Zepia Playground' }
+    meta: { titleKey: 'percentage_calculator' }
   },
   {
     path: '/byteconverter',
     name: 'byte-converter',
     component: () => import('../views/ByteConverter.vue'),
-    meta: { title: 'Byte Converter - Zepia Playground' }
+    meta: { titleKey: 'byte_converter' }
   },
   {
     path: '/cardetailgenerator',
     name: 'car-detail-generator',
     component: () => import('../views/CarDetailGenerator.vue'),
-    meta: { title: 'Car Detail Generator - Zepia Playground' }
+    meta: { titleKey: 'car_detail_generator' }
   },
   {
     path: '/thaiidgenerator',
     name: 'thai-id-generator',
     component: () => import('../views/ThaiIDGenerator.vue'),
-    meta: { title: 'Thai ID Generator & Validator - Zepia Playground' }
+    meta: { titleKey: 'thai_id_generator' }
   },
   {
     path: '/expenseoverview',
     name: 'expense-overview',
     component: () => import('../views/ExpenseOverview.vue'),
-    meta: { title: 'Expense Overview - Zepia Playground' }
+    meta: { titleKey: 'expense_overview' }
   },
   {
     path: '/kanjitoromanji',
     name: 'kanji-to-romanji',
     component: () => import('../views/KanjiToRomanji.vue'),
-    meta: { title: 'Kanji to Romaji Translator - Zepia Playground' }
+    meta: { titleKey: 'kanji_to_romanji' }
   },
   {
     path: '/qrcodegenerator',
     name: 'qr-code-generator',
     component: () => import('../views/QrCodeGenerator.vue'),
-    meta: { title: 'QR Code Generator - Zepia Playground' }
+    meta: { titleKey: 'qr_code_generator' }
   }
 ]
 
@@ -61,8 +62,19 @@ export const router = createRouter({
   }
 })
 
-router.afterEach((to) => {
-  if (to.meta.title) {
-    document.title = to.meta.title as string
+export function updatePageTitle() {
+  const currentRoute = router.currentRoute.value
+  const titleKey = currentRoute.meta?.titleKey as string | undefined
+  const appName = i18n.global.t('app_title')
+
+  if (titleKey && titleKey !== 'app_title') {
+    const pageTitle = i18n.global.t(titleKey)
+    document.title = `${pageTitle} - ${appName}`
+  } else {
+    document.title = `${appName} - Multi-utility Toolbox`
   }
+}
+
+router.afterEach(() => {
+  updatePageTitle()
 })
